@@ -41,7 +41,7 @@ class Object {
     
     var x: Int {
         didSet {
-            if x < 1 || x >= 14 {
+            if x < 1 || x > 16 {
                 x = oldValue
             }
         }
@@ -49,7 +49,7 @@ class Object {
     
     var y: Int {
         didSet {
-            if y < 1 || y >= 10 {
+            if y < 1 || y > 12 {
                 y = oldValue
             }
         }
