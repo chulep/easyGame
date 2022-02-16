@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6D0C27D827A592B600C995D6 /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0C27D727A592B600C995D6 /* ObjectModel.swift */; };
+		6D6FD6D427BCF5E6007EF161 /* GameScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6FD6D327BCF5E6007EF161 /* GameScreenView.swift */; };
 		6D709EE627AD24B400B01D34 /* GamepadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D709EE527AD24B400B01D34 /* GamepadView.swift */; };
 		6D87B08A27A98420000B11A4 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D87B08927A98420000B11A4 /* MainPresenter.swift */; };
 		6D87B08C27A98D11000B11A4 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D87B08B27A98D11000B11A4 /* ModuleBuilder.swift */; };
 		6DDDC7B427A3CC4F004634F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDC7B327A3CC4F004634F3 /* AppDelegate.swift */; };
 		6DDDC7B627A3CC4F004634F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDC7B527A3CC4F004634F3 /* SceneDelegate.swift */; };
-		6DDDC7B827A3CC4F004634F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDC7B727A3CC4F004634F3 /* ViewController.swift */; };
+		6DDDC7B827A3CC4F004634F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDC7B727A3CC4F004634F3 /* MainViewController.swift */; };
 		6DDDC7BB27A3CC4F004634F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DDDC7B927A3CC4F004634F3 /* Main.storyboard */; };
 		6DDDC7BE27A3CC4F004634F3 /* easyGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDC7BC27A3CC4F004634F3 /* easyGame.xcdatamodeld */; };
 		6DDDC7C027A3CC50004634F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DDDC7BF27A3CC50004634F3 /* Assets.xcassets */; };
@@ -22,13 +23,14 @@
 
 /* Begin PBXFileReference section */
 		6D0C27D727A592B600C995D6 /* ObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectModel.swift; sourceTree = "<group>"; };
+		6D6FD6D327BCF5E6007EF161 /* GameScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenView.swift; sourceTree = "<group>"; };
 		6D709EE527AD24B400B01D34 /* GamepadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamepadView.swift; sourceTree = "<group>"; };
 		6D87B08927A98420000B11A4 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		6D87B08B27A98D11000B11A4 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		6DDDC7B027A3CC4F004634F3 /* easyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = easyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DDDC7B327A3CC4F004634F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DDDC7B527A3CC4F004634F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6DDDC7B727A3CC4F004634F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6DDDC7B727A3CC4F004634F3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6DDDC7BA27A3CC4F004634F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6DDDC7BD27A3CC4F004634F3 /* easyGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = easyGame.xcdatamodel; sourceTree = "<group>"; };
 		6DDDC7BF27A3CC50004634F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -108,7 +110,8 @@
 		6DDDC7CC27A3CCA9004634F3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6DDDC7B727A3CC4F004634F3 /* ViewController.swift */,
+				6DDDC7B727A3CC4F004634F3 /* MainViewController.swift */,
+				6D6FD6D327BCF5E6007EF161 /* GameScreenView.swift */,
 				6D709EE527AD24B400B01D34 /* GamepadView.swift */,
 			);
 			path = View;
@@ -186,7 +189,8 @@
 			files = (
 				6D0C27D827A592B600C995D6 /* ObjectModel.swift in Sources */,
 				6D87B08A27A98420000B11A4 /* MainPresenter.swift in Sources */,
-				6DDDC7B827A3CC4F004634F3 /* ViewController.swift in Sources */,
+				6D6FD6D427BCF5E6007EF161 /* GameScreenView.swift in Sources */,
+				6DDDC7B827A3CC4F004634F3 /* MainViewController.swift in Sources */,
 				6DDDC7BE27A3CC4F004634F3 /* easyGame.xcdatamodeld in Sources */,
 				6D87B08C27A98D11000B11A4 /* ModuleBuilder.swift in Sources */,
 				6DDDC7B427A3CC4F004634F3 /* AppDelegate.swift in Sources */,
