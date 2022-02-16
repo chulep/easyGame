@@ -14,12 +14,12 @@ class GameScreenView: UIView {
         label.backgroundColor = .gray
         label.numberOfLines = 17
         label.textAlignment = .center
+        label.clipsToBounds = true
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        screen.clipsToBounds = true
         addSubview(screen)
         
     }
@@ -29,7 +29,6 @@ class GameScreenView: UIView {
         screen.frame = bounds
         screen.layer.cornerRadius = screen.bounds.width / 14
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
