@@ -64,7 +64,7 @@ class GamepadView: UIView {
             if button.tag == 0 {
                 button.layer.cornerRadius = startButton.bounds.height / 2
             } else {
-                button.layer.cornerRadius = bounds.width / 3 / 2
+                button.layer.cornerRadius = button.bounds.height / 2
             }
         }
         
@@ -75,7 +75,7 @@ class GamepadView: UIView {
             startButton.widthAnchor.constraint(equalTo: upButton.widthAnchor, multiplier: 2/3),
             
             upButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            upButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/3),
+            upButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 9/30),
             upButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
             upButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
