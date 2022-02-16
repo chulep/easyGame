@@ -8,29 +8,37 @@
 import UIKit
 
 class GamepadView: UIView {
+    
+    private let startButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("START", for: .normal)
+        button.backgroundColor = .systemGray
+        button.tag = 0
+        return button
+    }()
 
-    let upButton: UIButton = {
+    private let upButton: UIButton = {
        let button = UIButton()
         button.setTitle("U", for: .normal)
         button.tag = 1
         return button
     }()
     
-    let leftButton: UIButton = {
+    private let leftButton: UIButton = {
        let button = UIButton()
         button.setTitle("L", for: .normal)
         button.tag = 2
         return button
     }()
 
-    let rightButton: UIButton = {
+    private let rightButton: UIButton = {
        let button = UIButton()
         button.setTitle("R", for: .normal)
         button.tag = 3
         return button
     }()
 
-    let downButton: UIButton = {
+    private let downButton: UIButton = {
        let button = UIButton()
         button.setTitle("D", for: .normal)
         button.tag = 4
@@ -41,40 +49,50 @@ class GamepadView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .none
         
-        for button in [upButton, leftButton, rightButton, downButton] {
+        for button in [startButton, upButton, leftButton, rightButton, downButton] {
             button.backgroundColor = .systemGray
+            button.addTarget(nil, action: #selector(MainViewController.tapButton(_:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.clipsToBounds = true
-            self.addSubview(button)
+            addSubview(button)
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        for button in [upButton, leftButton, rightButton, downButton] {
-            button.layer.cornerRadius = self.bounds.width / 3 / 2
+        for button in [startButton, upButton, leftButton, rightButton, downButton] {
+            if button.tag == 0 {
+                button.layer.cornerRadius = startButton.bounds.height / 2
+            } else {
+                button.layer.cornerRadius = bounds.width / 3 / 2
+            }
         }
         
         NSLayoutConstraint.activate([
-            upButton.topAnchor.constraint(equalTo: self.topAnchor),
-            upButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3),
+            startButton.topAnchor.constraint(equalTo: topAnchor),
+            startButton.rightAnchor.constraint(equalTo: rightAnchor),
+            startButton.heightAnchor.constraint(equalTo: upButton.heightAnchor, multiplier: 1/3),
+            startButton.widthAnchor.constraint(equalTo: upButton.widthAnchor, multiplier: 2/3),
+            
+            upButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            upButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/3),
             upButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
-            upButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-
-            downButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            downButton.widthAnchor.constraint(equalTo: upButton.widthAnchor),
-            downButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
-            downButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-
-            leftButton.leftAnchor.constraint(equalTo: self.leftAnchor),
+            upButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            leftButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
             leftButton.widthAnchor.constraint(equalTo: upButton.widthAnchor),
             leftButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
-            leftButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            leftButton.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            rightButton.rightAnchor.constraint(equalTo: self.rightAnchor),
+            rightButton.rightAnchor.constraint(equalTo: rightAnchor,constant: -10),
             rightButton.widthAnchor.constraint(equalTo: upButton.widthAnchor),
             rightButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
-            rightButton.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            rightButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            downButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            downButton.widthAnchor.constraint(equalTo: upButton.widthAnchor),
+            downButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
+            downButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     

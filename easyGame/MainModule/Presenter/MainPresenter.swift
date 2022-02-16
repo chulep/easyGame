@@ -31,7 +31,6 @@ class MainPresenter: MainPresenterProtocol {
         self.view = view
     }
     
-    
     func createDataFromGameScreen() {
         let obj = [pers]
         var text = ""
