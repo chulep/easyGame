@@ -6,13 +6,14 @@
 //
 
 import UIKit
+
 //MARK: - Main Protocols
 protocol MainViewProtocol: AnyObject {
     func updateGameScreen()
 }
 
 protocol MainPresenterProtocol: AnyObject {
-    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServise, objects: [Object])
+    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServise)
     func createDataFromGameScreen()
     func moveUp()
     func moveLeft()
@@ -26,16 +27,14 @@ class MainPresenter: MainPresenterProtocol {
     weak var view: MainViewProtocol?
     var gameScreenData: String!
     var movePhysicsServise: MovePhysicsServise!
-    var objects: [Object]!
     
-    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServise, objects: [Object]) {
+    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServise) {
         self.view = view
         self.movePhysicsServise = movePhysicsServise
-        self.objects = objects
     }
     
     func createDataFromGameScreen() {
-        let obj = objects!
+        let obj = movePhysicsServise.obects!
         var text = ""
         let x = 16
         let y = 12
@@ -74,22 +73,22 @@ class MainPresenter: MainPresenterProtocol {
     
     //MARK: - Movement
     func moveUp() {
-        movePhysicsServise.universalMove(direction: .up)
+        movePhysicsServise.universalMove(personage: .hero, direction: .up)
         createDataFromGameScreen()
     }
     
     func moveLeft() {
-        movePhysicsServise.universalMove(direction: .left)
+        movePhysicsServise.universalMove(personage: .hero, direction: .left)
         createDataFromGameScreen()
     }
     
     func moveRight() {
-        movePhysicsServise.universalMove(direction: .right)
+        movePhysicsServise.universalMove(personage: .hero, direction: .right)
         createDataFromGameScreen()
     }
     
     func moveDown() {
-        movePhysicsServise.universalMove(direction: .down)
+        movePhysicsServise.universalMove(personage: .hero, direction: .down)
         createDataFromGameScreen()
     }
     

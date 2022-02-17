@@ -20,7 +20,7 @@ class ModuleBuilder: BuilderProtocol {
         let heart = Object(name: .heart, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
         let servise = MovePhysicsServise(obects: [hero, antiHero, box, palm, heart])
         let view = MainViewController()
-        let presenter = MainPresenter(view: view, movePhysicsServise: servise, objects: [hero, antiHero, box, palm, heart])
+        let presenter = MainPresenter(view: view, movePhysicsServise: servise)
         view.presenter = presenter
         return view
     }
