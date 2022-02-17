@@ -10,21 +10,21 @@ import Foundation
 class Object {
     
     enum Name: String {
-        case human = "✦"
+        case hero = "✦"
         case box = "⊠"
         case heart = "♡"
         case palm = "✽"
-        case dino = "X"
+        case antiHero = "X"
     }
     
-    enum DirectionOfTravel {
+    enum Direction {
         case left
         case right
         case up
         case down
     }
     
-    func movement (direction: DirectionOfTravel) {
+    func baseMovement (direction: Direction) {
         switch direction {
         case .right:
             self.x += 1
