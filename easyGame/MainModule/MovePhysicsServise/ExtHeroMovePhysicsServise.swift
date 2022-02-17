@@ -8,137 +8,54 @@
 import Foundation
 
 extension MovePhysicsServise {
-    func heroMoveUp() {
-        hero.baseMovement(direction: .up)
+    
+    func universalMove(direction: Object.Direction) {
+        let reverseMove = reverseMove(direction: direction)
+        hero.baseMovement(direction: direction)
         
         for i in obects {
-            switch i.name {
-            case .box:
-                if hero.x == i.x && hero.y == i.y {
-                    i.baseMovement(direction: .up)
-                }
-                if i.x == 1 || i.y == 1 || i.x == 12 || i.y == 12 {
-                    if hero.y == i.y && hero.x == i.x {
-                        hero.baseMovement(direction: .down)
+            for j in obects {
+                switch (i.name, j.name) {
+                
+                case (.hero, .box):
+                    if i.x == j.x && i.y == j.y {
+                        j.baseMovement(direction: direction)
                     }
+                    if j.x == 1 || j.y == 1 || j.x == 12 || j.y == 12 {
+                        if i.y == j.y && i.x == j.x {
+                            i.baseMovement(direction: reverseMove)
+                        }
+                    }
+                    
+                case (.box, .palm):
+                    if i.x == j.x && i.y == j.y {
+                        i.baseMovement(direction: reverseMove)
+                        if hero.x == i.x && hero.y == i.y {
+                            hero.baseMovement(direction: reverseMove)
+                        }
+                    }
+                    
+                case (.hero, .palm):
+                    if i.x == j.x && i.y == j.y {
+                        i.baseMovement(direction: reverseMove)
+                    }
+                
+                case (.hero, .antiHero):
+                    if i.x == j.x && i.y == j.y {
+                        print("GameOver")
+                    }
+                    
+                case (.hero, .heart):
+                if i.x == j.x && i.y == j.y {
+                    j.x = Int.random(in: 1...12)
+                    j.y = Int.random(in: 1...12)
                 }
-            case .palm:
-                if hero.y == i.y && hero.x == i.x {
-                    hero.baseMovement(direction: .down)
+                    
+                default:
+                    break
                 }
-            case .heart:
-                if hero.x == i.x && hero.y == i.y {
-                    i.x = Int.random(in: 1...12)
-                    i.y = Int.random(in: 1...12)
-                }
-            case .antiHero:
-                if hero.x == i.x && hero.y == i.y {
-                    print("GameOver")
-                }
-            default:
-                break
             }
         }
     }
-    
-    func heroMoveLeft() {
-        hero.baseMovement(direction: .left)
-        
-        for i in obects {
-            switch i.name {
-            case .box:
-                if hero.x == i.x && hero.y == i.y {
-                    i.baseMovement(direction: .left)
-                }
-                if i.x == 1 || i.y == 1 || i.x == 12 || i.y == 12 {
-                    if hero.y == i.y && hero.x == i.x {
-                        hero.baseMovement(direction: .right)
-                    }
-                }
-            case .palm:
-                if hero.y == i.y && hero.x == i.x {
-                    hero.baseMovement(direction: .right)
-                }
-            case .heart:
-                if hero.x == i.x && hero.y == i.y {
-                    i.x = Int.random(in: 1...12)
-                    i.y = Int.random(in: 1...12)
-                }
-            case .antiHero:
-                if hero.x == i.x && hero.y == i.y {
-                    print("GameOver")
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    func heroMoveRight() {
-        hero.baseMovement(direction: .right)
-        
-        for i in obects {
-            switch i.name {
-            case .box:
-                if hero.x == i.x && hero.y == i.y {
-                    i.baseMovement(direction: .right)
-                }
-                if i.x == 1 || i.y == 1 || i.x == 12 || i.y == 12 {
-                    if hero.y == i.y && hero.x == i.x {
-                        hero.baseMovement(direction: .left)
-                    }
-                }
-            case .palm:
-                if hero.y == i.y && hero.x == i.x {
-                    hero.baseMovement(direction: .left)
-                }
-            case .heart:
-                if hero.x == i.x && hero.y == i.y {
-                    i.x = Int.random(in: 1...12)
-                    i.y = Int.random(in: 1...12)
-                }
-            case .antiHero:
-                if hero.x == i.x && hero.y == i.y {
-                    print("GameOver")
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    func heroMoveDown() {
-        hero.baseMovement(direction: .down)
-        
-        for i in obects {
-            switch i.name {
-            case .box:
-                if hero.x == i.x && hero.y == i.y {
-                    i.baseMovement(direction: .down)
-                }
-                if i.x == 1 || i.y == 1 || i.x == 12 || i.y == 12 {
-                    if hero.y == i.y && hero.x == i.x {
-                        hero.baseMovement(direction: .up)
-                    }
-                }
-            case .palm:
-                if hero.y == i.y && hero.x == i.x {
-                    hero.baseMovement(direction: .up)
-                }
-            case .heart:
-                if hero.x == i.x && hero.y == i.y {
-                    i.x = Int.random(in: 1...12)
-                    i.y = Int.random(in: 1...12)
-                }
-            case .antiHero:
-                if hero.x == i.x && hero.y == i.y {
-                    print("GameOver")
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    
 }
+

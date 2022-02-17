@@ -74,22 +74,22 @@ class MainPresenter: MainPresenterProtocol {
     
     //MARK: - Movement
     func moveUp() {
-        movePhysicsServise.heroMovePhysics(direction: .up)
+        movePhysicsServise.universalMove(direction: .up)
         createDataFromGameScreen()
     }
     
     func moveLeft() {
-        movePhysicsServise.heroMovePhysics(direction: .left)
+        movePhysicsServise.universalMove(direction: .left)
         createDataFromGameScreen()
     }
     
     func moveRight() {
-        movePhysicsServise.heroMovePhysics(direction: .right)
+        movePhysicsServise.universalMove(direction: .right)
         createDataFromGameScreen()
     }
     
     func moveDown() {
-        movePhysicsServise.heroMovePhysics(direction: .down)
+        movePhysicsServise.universalMove(direction: .down)
         createDataFromGameScreen()
     }
     

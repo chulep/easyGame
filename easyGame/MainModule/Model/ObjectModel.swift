@@ -61,3 +61,7 @@ class Object {
         self.y = y
     }
 }
+
+class Palm: Object {
+    
+}

@@ -9,8 +9,8 @@ import Foundation
 
 class MovePhysicsServise {
     var obects: [Object]!
-     var hero: Object!
-     var antiHero: Object!
+    var hero: Object!
+    var antiHero: Object!
     
     init(obects: [Object]) {
         self.obects = obects
@@ -28,36 +28,17 @@ class MovePhysicsServise {
         }
     }
     
-    enum Direction {
-        case up
-        case left
-        case right
-        case down
-    }
-    
-    func heroMovePhysics(direction: Direction) {
+    func reverseMove(direction: Object.Direction) -> Object.Direction {
         switch direction {
         case .up:
-            heroMoveUp()
+            return .down
         case .left:
-            heroMoveLeft()
+            return .right
         case .right:
-            heroMoveRight()
+            return .left
         case .down:
-            heroMoveDown()
+            return .up
         }
     }
     
-    func antiHeroMovePhysics(direction: Direction) {
-        switch direction {
-        case .up:
-            antiHeroMoveUp()
-        case .left:
-            antiHeroMoveLeft()
-        case .right:
-            antiHeroMoveRight()
-        case .down:
-            antiHeroMoveDown()
-        }
-    }
 }
