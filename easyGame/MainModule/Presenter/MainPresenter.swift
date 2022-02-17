@@ -36,8 +36,8 @@ class MainPresenter: MainPresenterProtocol {
     func createDataFromGameScreen() {
         let obj = movePhysicsServise.obects!
         var text = ""
-        let x = 16
-        let y = 12
+        let x = movePhysicsServise.room.x
+        let y = movePhysicsServise.room.y
         
         for i in 0...y - 1 {
             counter: for j in 0...x - 1 {

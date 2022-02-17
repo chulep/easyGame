@@ -39,7 +39,7 @@ extension MainViewController {
             view.addSubview(subView)
         }
 
-        //MARK: - Layout Constraint
+        //MARK: - Constraints
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         NSLayoutConstraint.activate([
             

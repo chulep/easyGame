@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6D0C27D827A592B600C995D6 /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0C27D727A592B600C995D6 /* ObjectModel.swift */; };
 		6D1FA2AD27BE3CAE000207C3 /* MovePhysicsServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1FA2AC27BE3CAE000207C3 /* MovePhysicsServise.swift */; };
+		6D1FA2B327BEA8E7000207C3 /* TimerServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1FA2B227BEA8E7000207C3 /* TimerServise.swift */; };
 		6D6FD6D427BCF5E6007EF161 /* GameScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6FD6D327BCF5E6007EF161 /* GameScreenView.swift */; };
 		6D709EE627AD24B400B01D34 /* GamepadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D709EE527AD24B400B01D34 /* GamepadView.swift */; };
 		6D87B08A27A98420000B11A4 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D87B08927A98420000B11A4 /* MainPresenter.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		6D0C27D727A592B600C995D6 /* ObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectModel.swift; sourceTree = "<group>"; };
 		6D1FA2AC27BE3CAE000207C3 /* MovePhysicsServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePhysicsServise.swift; sourceTree = "<group>"; };
+		6D1FA2B227BEA8E7000207C3 /* TimerServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServise.swift; sourceTree = "<group>"; };
 		6D6FD6D327BCF5E6007EF161 /* GameScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenView.swift; sourceTree = "<group>"; };
 		6D709EE527AD24B400B01D34 /* GamepadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamepadView.swift; sourceTree = "<group>"; };
 		6D87B08927A98420000B11A4 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 			path = MovePhysicsServise;
 			sourceTree = "<group>";
 		};
+		6D1FA2B427BEA8ED000207C3 /* TimerServise */ = {
+			isa = PBXGroup;
+			children = (
+				6D1FA2B227BEA8E7000207C3 /* TimerServise.swift */,
+			);
+			path = TimerServise;
+			sourceTree = "<group>";
+		};
 		6D87B08827A982B3000B11A4 /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +76,7 @@
 				6DDDC7CC27A3CCA9004634F3 /* View */,
 				6DDDC7CA27A3CC8B004634F3 /* Presenter */,
 				6D1FA2AB27BE3C91000207C3 /* MovePhysicsServise */,
+				6D1FA2B427BEA8ED000207C3 /* TimerServise */,
 			);
 			path = MainModule;
 			sourceTree = "<group>";
@@ -204,6 +215,7 @@
 				6DDDC7B827A3CC4F004634F3 /* MainViewController.swift in Sources */,
 				6DDDC7BE27A3CC4F004634F3 /* easyGame.xcdatamodeld in Sources */,
 				6D1FA2AD27BE3CAE000207C3 /* MovePhysicsServise.swift in Sources */,
+				6D1FA2B327BEA8E7000207C3 /* TimerServise.swift in Sources */,
 				6D87B08C27A98D11000B11A4 /* ModuleBuilder.swift in Sources */,
 				6DDDC7B427A3CC4F004634F3 /* AppDelegate.swift in Sources */,
 				6D709EE627AD24B400B01D34 /* GamepadView.swift in Sources */,

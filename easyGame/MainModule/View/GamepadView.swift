@@ -67,7 +67,7 @@ class GamepadView: UIView {
                 button.layer.cornerRadius = button.bounds.height / 2
             }
         }
-        
+        //MARK: - Constraints
         NSLayoutConstraint.activate([
             startButton.topAnchor.constraint(equalTo: topAnchor),
             startButton.rightAnchor.constraint(equalTo: rightAnchor),

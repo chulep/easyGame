@@ -9,11 +9,13 @@ import Foundation
 
 class MovePhysicsServise {
     var obects: [Object]!
-    var hero: Object!
-    var antiHero: Object!
+    var room: (x: Int, y: Int)!
+    private var hero: Object!
+    private var antiHero: Object!
     
-    init(obects: [Object]) {
+    init(obects: [Object], room: (x: Int, y: Int)) {
         self.obects = obects
+        self.room = room
         searchHeroes()
     }
     
@@ -61,7 +63,7 @@ class MovePhysicsServise {
                     if i.x == j.x && i.y == j.y {
                         j.baseMovement(direction: direction)
                     }
-                    if j.x == 1 || j.y == 1 || j.x == 12 || j.y == 12 {
+                    if j.x == 1 || j.y == 1 || j.x == room.x || j.y == room.y {
                         if i.y == j.y && i.x == j.x {
                             i.baseMovement(direction: reverseMove)
                         }
@@ -76,8 +78,8 @@ class MovePhysicsServise {
                     }
                 case (.hero, .heart):
                     if i.x == j.x && i.y == j.y {
-                        j.x = Int.random(in: 1...12)
-                        j.y = Int.random(in: 1...12)
+                        j.x = Int.random(in: 1...room.x)
+                        j.y = Int.random(in: 1...room.y)
                     }
                     
                 //other physics

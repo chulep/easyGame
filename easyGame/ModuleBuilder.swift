@@ -18,7 +18,7 @@ class ModuleBuilder: BuilderProtocol {
         let palm = Palm(name: .palm, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
         let box = Object(name: .box, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
         let heart = Object(name: .heart, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
-        let servise = MovePhysicsServise(obects: [hero, antiHero, box, palm, heart])
+        let servise = MovePhysicsServise(obects: [hero, antiHero, box, palm, heart], room: (x: 16, y: 12))
         let view = MainViewController()
         let presenter = MainPresenter(view: view, movePhysicsServise: servise)
         view.presenter = presenter
