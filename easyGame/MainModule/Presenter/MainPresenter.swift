@@ -5,7 +5,7 @@
 //  Created by chulep on 01.02.2022.
 //
 
-import UIKit
+import Foundation
 
 //MARK: - Main Protocols
 protocol MainViewProtocol: AnyObject {
@@ -15,16 +15,20 @@ protocol MainViewProtocol: AnyObject {
 protocol MainPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol)
     var gameScreenData: String? {get set}
+    var timerServise: TimerServiseProtocol? {get}
     func createDataFromGameScreen()
-    func moveUp()
-    func moveLeft()
-    func moveRight()
-    func moveDown()
+    func timerCallback()
+    func startButtonTap()
+    func moveUp(_ personage: Object.Name)
+    func moveLeft(_ personage: Object.Name)
+    func moveRight(_ personage: Object.Name)
+    func moveDown(_ personage: Object.Name)
 }
 
 //MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
 
+    var timerServise: TimerServiseProtocol?
     weak var view: MainViewProtocol?
     var gameScreenData: String?
     private var movePhysicsServise: MovePhysicsServiseProtocol
@@ -42,24 +46,42 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     //MARK: - Movement
-    func moveUp() {
-        movePhysicsServise.universalMove(personage: .hero, direction: .up)
+    func moveUp(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .up)
         createDataFromGameScreen()
     }
     
-    func moveLeft() {
-        movePhysicsServise.universalMove(personage: .hero, direction: .left)
+    func moveLeft(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .left)
         createDataFromGameScreen()
     }
     
-    func moveRight() {
-        movePhysicsServise.universalMove(personage: .hero, direction: .right)
+    func moveRight(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .right)
         createDataFromGameScreen()
     }
     
-    func moveDown() {
-        movePhysicsServise.universalMove(personage: .hero, direction: .down)
+    func moveDown(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .down)
         createDataFromGameScreen()
     }
     
+    func startButtonTap() {
+        timerServise?.startTimer()
+    }
+    
+    func timerCallback() {
+        switch Int.random(in: 1...4) {
+        case 1:
+            moveUp(.antiHero)
+        case 2:
+            moveLeft(.antiHero)
+        case 3:
+            moveRight(.antiHero)
+        case 4:
+            moveDown(.antiHero)
+        default:
+            break
+        }
+    }
 }

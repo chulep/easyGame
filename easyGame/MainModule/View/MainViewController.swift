@@ -59,15 +59,15 @@ extension MainViewController {
     @objc func tapButton(_ button: UIButton) {
         switch button.tag {
         case 0:
-            print("start")
+            presenter.startButtonTap()
         case 1:
-            presenter.moveUp()
+            presenter.moveUp(.hero)
         case 2:
-            presenter.moveLeft()
+            presenter.moveLeft(.hero)
         case 3:
-            presenter.moveRight()
+            presenter.moveRight(.hero)
         case 4:
-            presenter.moveDown()
+            presenter.moveDown(.hero)
         default:
             break
         }

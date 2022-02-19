@@ -7,14 +7,23 @@
 
 import Foundation
 
-class TimerServise {
+protocol TimerServiseProtocol {
+    func startTimer()
+    func timerStop()
+}
+
+class TimerServise: TimerServiseProtocol {
     private var timer = Timer()
     private var isActiveTimer = Bool()
-    var timerCallback: (() -> ())?
+    weak var presenter: MainPresenterProtocol?
+    
+    init(presenter: MainPresenterProtocol) {
+        self.presenter = presenter
+    }
     
     func startTimer() {
         if isActiveTimer == false {
-            timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(timerHelper), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
         }
         isActiveTimer = true
     }
@@ -24,7 +33,7 @@ class TimerServise {
         isActiveTimer = false
     }
     
-    @objc private func timerHelper() {
-        timerCallback?()
+    @objc private func timerCallback() {
+        presenter?.timerCallback()
     }
 }
