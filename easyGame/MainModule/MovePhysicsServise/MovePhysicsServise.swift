@@ -7,7 +7,11 @@
 
 import Foundation
 
-class MovePhysicsServise {
+protocol MovePhysicsServiseProtocol {
+    func universalMove(personage: Object.Name, direction: Object.Direction)
+}
+
+class MovePhysicsServise: MovePhysicsServiseProtocol {
     var obects: [Object]!
     var room: (x: Int, y: Int)!
     private var hero: Object!
@@ -58,7 +62,7 @@ class MovePhysicsServise {
             for j in obects {
                 switch (i.name, j.name) {
                 
-                //hero physics
+                //push box
                 case (.hero, .box):
                     if i.x == j.x && i.y == j.y {
                         j.baseMovement(direction: direction)
@@ -68,41 +72,29 @@ class MovePhysicsServise {
                             i.baseMovement(direction: reverseMove)
                         }
                     }
-                case (.hero, .palm):
+                //interfere
+                case (.hero, .palm), (.antiHero, .palm), (.antiHero, .box), (.antiHero, .heart):
                     if i.x == j.x && i.y == j.y {
                         i.baseMovement(direction: reverseMove)
                     }
+                //gameover
                 case (.hero, .antiHero):
                     if i.x == j.x && i.y == j.y {
                         print("GameOver")
                     }
+                //
                 case (.hero, .heart):
                     if i.x == j.x && i.y == j.y {
                         j.x = Int.random(in: 1...room.x)
                         j.y = Int.random(in: 1...room.y)
                     }
                     
-                //other physics
-                case (.box, .palm):
+                case (.box, .palm), (.box, .box):
                     if i.x == j.x && i.y == j.y {
                         i.baseMovement(direction: reverseMove)
                         if hero.x == i.x && hero.y == i.y {
                             hero.baseMovement(direction: reverseMove)
                         }
-                    }
-                    
-                //antiHero physics
-                case (.antiHero, .palm):
-                    if i.x == j.x && i.y == j.y {
-                        i.baseMovement(direction: reverseMove)
-                    }
-                case (.antiHero, .box):
-                    if i.x == j.x && i.y == j.y {
-                        i.baseMovement(direction: reverseMove)
-                    }
-                case (.antiHero, .heart):
-                    if i.x == j.x && i.y == j.y {
-                        i.baseMovement(direction: reverseMove)
                     }
                 default:
                     break
