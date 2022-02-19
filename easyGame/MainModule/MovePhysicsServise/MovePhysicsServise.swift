@@ -8,23 +8,24 @@
 import Foundation
 
 protocol MovePhysicsServiseProtocol {
+    init(obects: [Object], room: (x: Int, y: Int))
     func universalMove(personage: Object.Name, direction: Object.Direction)
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
-    var obects: [Object]!
-    var room: (x: Int, y: Int)!
+    private var objects: [Object]
+    private var room: (x: Int, y: Int)!
     private var hero: Object!
     private var antiHero: Object!
     
-    init(obects: [Object], room: (x: Int, y: Int)) {
-        self.obects = obects
+    required init(obects: [Object], room: (x: Int, y: Int)) {
+        self.objects = obects
         self.room = room
         searchHeroes()
     }
     
     private func searchHeroes() {
-        for i in obects {
+        for i in objects {
             if i.name == .hero {
                 hero = i
             }
@@ -47,7 +48,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
         }
     }
     
-    //MARK: - physics method
+    //MARK: - move physics method
     func universalMove(personage: Object.Name, direction: Object.Direction) {
         let reverseMove = reverseMove(direction: direction)
         
@@ -58,8 +59,8 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
             antiHero.baseMovement(direction: direction)
         }
         
-        for i in obects {
-            for j in obects {
+        for i in objects {
+            for j in objects {
                 switch (i.name, j.name) {
                 
                 //push box
@@ -72,7 +73,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
                             i.baseMovement(direction: reverseMove)
                         }
                     }
-                //interfere
+                //stop move
                 case (.hero, .palm), (.antiHero, .palm), (.antiHero, .box), (.antiHero, .heart):
                     if i.x == j.x && i.y == j.y {
                         i.baseMovement(direction: reverseMove)
@@ -82,18 +83,20 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
                     if i.x == j.x && i.y == j.y {
                         print("GameOver")
                     }
-                //
+                //collect hearts
                 case (.hero, .heart):
                     if i.x == j.x && i.y == j.y {
                         j.x = Int.random(in: 1...room.x)
                         j.y = Int.random(in: 1...room.y)
                     }
-                    
-                case (.box, .palm), (.box, .box):
-                    if i.x == j.x && i.y == j.y {
-                        i.baseMovement(direction: reverseMove)
-                        if hero.x == i.x && hero.y == i.y {
-                            hero.baseMovement(direction: reverseMove)
+                //stop push box
+                case (.box, .palm), (.box, .box): //(.box, .antiHero)
+                    if i.index != j.index {
+                        if i.x == j.x && i.y == j.y {
+                            i.baseMovement(direction: reverseMove)
+                            if hero.x == i.x && hero.y == i.y {
+                                hero.baseMovement(direction: reverseMove)
+                            }
                         }
                     }
                 default:

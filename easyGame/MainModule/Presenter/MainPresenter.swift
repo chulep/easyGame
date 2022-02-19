@@ -13,7 +13,8 @@ protocol MainViewProtocol: AnyObject {
 }
 
 protocol MainPresenterProtocol: AnyObject {
-    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServise)
+    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol)
+    var gameScreenData: String? {get set}
     func createDataFromGameScreen()
     func moveUp()
     func moveLeft()
@@ -25,49 +26,18 @@ protocol MainPresenterProtocol: AnyObject {
 class MainPresenter: MainPresenterProtocol {
 
     weak var view: MainViewProtocol?
-    var gameScreenData: String!
-    var movePhysicsServise: MovePhysicsServise!
+    var gameScreenData: String?
+    private var movePhysicsServise: MovePhysicsServiseProtocol
+    private var gameScreenDataServise: GameScreenDataServiseProtocol
     
-    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServise) {
+    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol) {
         self.view = view
         self.movePhysicsServise = movePhysicsServise
+        self.gameScreenDataServise = gameScreenDataServise
     }
     
     func createDataFromGameScreen() {
-        let obj = movePhysicsServise.obects!
-        var text = ""
-        let x = movePhysicsServise.room.x
-        let y = movePhysicsServise.room.y
-        
-        for i in 0...y - 1 {
-            counter: for j in 0...x - 1 {
-                for o in obj {
-                    switch (o.name, o.x, o.y) {
-                    case (.hero, let x, let y) where x == j + 1 && y == i + 1:
-                        //print("\(o.name.rawValue)", terminator: " ")
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.box, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.heart, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.palm, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.antiHero, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    default:
-                        break
-                    }
-                }
-                text.append("⊹ ")
-            }
-            text.append("\n")
-        }
-        self.gameScreenData = text
+        gameScreenData = gameScreenDataServise.createData()
         view?.updateGameScreen()
     }
     

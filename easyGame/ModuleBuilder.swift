@@ -7,20 +7,17 @@
 
 import UIKit
 
-protocol BuilderProtocol {
+protocol ModuleBuilderProtocol {
     static func createMainVC() -> UIViewController
 }
 
-class ModuleBuilder: BuilderProtocol {
+class ModuleBuilder: ModuleBuilderProtocol {
     static func createMainVC() -> UIViewController {
-        let hero = Object(name: .hero, x: 1, y: 1)
-        let antiHero = Object(name: .antiHero, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
-        let palm = Palm(name: .palm, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
-        let box = Object(name: .box, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
-        let heart = Object(name: .heart, x: Int.random(in: 1...12), y: Int.random(in: 1...12))
-        let servise = MovePhysicsServise(obects: [hero, antiHero, box, palm, heart], room: (x: 16, y: 12))
+        let objects = PersonageBuilder.create.amount(palm: 3, box: 3)
+        let physicServise = MovePhysicsServise(obects: objects, room: PersonageBuilder.create.room)
+        let dataServise = GameScreenDataServise(objects: objects, room: PersonageBuilder.create.room)
         let view = MainViewController()
-        let presenter = MainPresenter(view: view, movePhysicsServise: servise)
+        let presenter = MainPresenter(view: view, movePhysicsServise: physicServise, gameScreenDataServise: dataServise)
         view.presenter = presenter
         return view
     }
