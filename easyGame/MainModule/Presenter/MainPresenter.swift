@@ -5,89 +5,85 @@
 //  Created by chulep on 01.02.2022.
 //
 
-import UIKit
+import Foundation
+
 //MARK: - Main Protocols
 protocol MainViewProtocol: AnyObject {
     func updateGameScreen()
 }
 
 protocol MainPresenterProtocol: AnyObject {
-    init(view: MainViewProtocol)
+    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol)
+    var gameScreenData: String? {get set}
+    var timerServise: TimerServiseProtocol? {get}
     func createDataFromGameScreen()
-    func moveUp()
-    func moveLeft()
-    func moveRight()
-    func moveDown()
+    func timerCallback()
+    func startButtonTap()
+    func moveUp(_ personage: Object.Name)
+    func moveLeft(_ personage: Object.Name)
+    func moveRight(_ personage: Object.Name)
+    func moveDown(_ personage: Object.Name)
 }
 
 //MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
-
-    weak var view: MainViewProtocol?
-    let pers = Object(name: .human, x: 1, y: 1)
-    var gameScreenData: String!
     
-    required init(view: MainViewProtocol) {
+    var hearts = String()
+    var timerServise: TimerServiseProtocol?
+    weak var view: MainViewProtocol?
+    var gameScreenData: String?
+    private var movePhysicsServise: MovePhysicsServiseProtocol
+    private var gameScreenDataServise: GameScreenDataServiseProtocol
+    
+    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol) {
         self.view = view
+        self.movePhysicsServise = movePhysicsServise
+        self.gameScreenDataServise = gameScreenDataServise
     }
     
     func createDataFromGameScreen() {
-        let obj = [pers]
-        var text = ""
-        let x = 16
-        let y = 12
-        
-        for i in 0...y - 1 {
-            counter: for j in 0...x - 1 {
-                for o in obj {
-                    switch (o.name, o.x, o.y) {
-                    case (.human, let x, let y) where x == j + 1 && y == i + 1:
-                        //print("\(o.name.rawValue)", terminator: " ")
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.box, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.heart, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.palm, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    case (.dino, let x, let y) where x == j + 1 && y == i + 1:
-                        text.append("\(o.name.rawValue) ")
-                        continue counter
-                    default:
-                        break
-                    }
-                }
-                text.append("⊹ ")
-            }
-            text.append("\n")
-        }
-        self.gameScreenData = text
+        gameScreenData = gameScreenDataServise.createData()
+        hearts = "heart: \(movePhysicsServise.hearts)"
         view?.updateGameScreen()
     }
     
     //MARK: - Movement
-    func moveUp() {
-        pers.movement(direction: .up)
+    func moveUp(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .up)
         createDataFromGameScreen()
     }
     
-    func moveLeft() {
-        pers.movement(direction: .left)
+    func moveLeft(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .left)
         createDataFromGameScreen()
     }
     
-    func moveRight() {
-        pers.movement(direction: .right)
+    func moveRight(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .right)
         createDataFromGameScreen()
     }
     
-    func moveDown() {
-        pers.movement(direction: .down)
+    func moveDown(_ personage: Object.Name) {
+        movePhysicsServise.universalMove(personage: personage, direction: .down)
         createDataFromGameScreen()
     }
     
+    func startButtonTap() {
+        timerServise?.startStopTimer()
+    }
+    
+    func timerCallback() {
+        switch Int.random(in: 1...4) {
+        case 1:
+            moveUp(.antiHero)
+        case 2:
+            moveLeft(.antiHero)
+        case 3:
+            moveRight(.antiHero)
+        case 4:
+            moveDown(.antiHero)
+        default:
+            break
+        }
+    }
 }

@@ -67,7 +67,7 @@ class GamepadView: UIView {
                 button.layer.cornerRadius = button.bounds.height / 2
             }
         }
-        
+        //MARK: - Constraints
         NSLayoutConstraint.activate([
             startButton.topAnchor.constraint(equalTo: topAnchor),
             startButton.rightAnchor.constraint(equalTo: rightAnchor),
@@ -99,5 +99,4 @@ class GamepadView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
