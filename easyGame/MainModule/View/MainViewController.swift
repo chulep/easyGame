@@ -25,7 +25,7 @@ extension MainViewController: MainViewProtocol {
     
     func updateGameScreen() {
         gameScreenView.screen.text = presenter.gameScreenData
-        gameScreenView.heats.text = presenter.hearts
+        gameScreenView.heats.text = presenter.heartsGameScreen
     }
 }
 

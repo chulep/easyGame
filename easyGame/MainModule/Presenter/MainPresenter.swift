@@ -28,8 +28,8 @@ protocol MainPresenterProtocol: AnyObject {
 //MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
     
-    var startBool = false
-    var hearts = String()
+    private var startBool = false
+    var heartsGameScreen = String()
     var timerServise: TimerServiseProtocol?
     weak var view: MainViewProtocol?
     var gameScreenData: String?
@@ -44,34 +44,52 @@ class MainPresenter: MainPresenterProtocol {
     
     func createDataFromGameScreen() {
         if startBool == false {
-            gameScreenData = "Press Start"
+            gameScreenData = "Press START"
+            heartsGameScreen = ""
             view?.updateGameScreen()
         } else {
             gameScreenData = gameScreenDataServise.createData()
-            hearts = "heart: \(movePhysicsServise.hearts)"
+            heartsGameScreen = "heart: \(movePhysicsServise.hearts)"
+            view?.updateGameScreen()
+        }
+        if movePhysicsServise.hearts == "" {
+            startBool = !startBool
+            timerServise?.startStopTimer()
+            gameScreenData = "Game Over"
+            heartsGameScreen = ""
+            movePhysicsServise.hearts = "♡ "
+            refreshObject()
             view?.updateGameScreen()
         }
     }
     
     //MARK: - Movement
     func moveUp(_ personage: Object.Name) {
-        movePhysicsServise.universalMove(personage: personage, direction: .up)
-        createDataFromGameScreen()
+        if startBool == true {
+            movePhysicsServise.universalMove(personage: personage, direction: .up)
+            createDataFromGameScreen()
+        }
     }
     
     func moveLeft(_ personage: Object.Name) {
-        movePhysicsServise.universalMove(personage: personage, direction: .left)
-        createDataFromGameScreen()
+        if startBool == true {
+            movePhysicsServise.universalMove(personage: personage, direction: .left)
+            createDataFromGameScreen()
+        }
     }
     
     func moveRight(_ personage: Object.Name) {
-        movePhysicsServise.universalMove(personage: personage, direction: .right)
-        createDataFromGameScreen()
+        if startBool == true {
+            movePhysicsServise.universalMove(personage: personage, direction: .right)
+            createDataFromGameScreen()
+        }
     }
     
     func moveDown(_ personage: Object.Name) {
-        movePhysicsServise.universalMove(personage: personage, direction: .down)
-        createDataFromGameScreen()
+        if startBool == true {
+            movePhysicsServise.universalMove(personage: personage, direction: .down)
+            createDataFromGameScreen()
+        }
     }
     
     func startButtonTap() {
@@ -92,6 +110,13 @@ class MainPresenter: MainPresenterProtocol {
             moveDown(.antiHero)
         default:
             break
+        }
+    }
+    
+    private func refreshObject() {
+        for i in gameScreenDataServise.objects {
+            i.x = Int.random(in: 1...PersonageBuilder.create.room.x)
+            i.x = Int.random(in: 1...PersonageBuilder.create.room.y)
         }
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 protocol MovePhysicsServiseProtocol {
     init(obects: [Object], room: (x: Int, y: Int))
     var hearts: String {get set}
+    var objects: [Object] {get set}
     func universalMove(personage: Object.Name, direction: Object.Direction)
 }
 
@@ -21,7 +22,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
             }
         }
     }
-    private var objects: [Object]
+    var objects: [Object]
     private var room: (x: Int, y: Int)!
     private var hero: Object!
     private var antiHero: Object!
@@ -99,7 +100,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
                         j.y = Int.random(in: 1...room.y)
                     }
                 //stop push box
-                case (.box, .palm), (.box, .box): //(.box, .antiHero)
+                case (.box, .palm), (.box, .box), (.box, .heart): //(.box, .antiHero)
                     if i.index != j.index {
                         if i.x == j.x && i.y == j.y {
                             i.baseMovement(direction: reverseMove)
