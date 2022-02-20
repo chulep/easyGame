@@ -27,7 +27,8 @@ protocol MainPresenterProtocol: AnyObject {
 
 //MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
-
+    
+    var hearts = String()
     var timerServise: TimerServiseProtocol?
     weak var view: MainViewProtocol?
     var gameScreenData: String?
@@ -42,6 +43,7 @@ class MainPresenter: MainPresenterProtocol {
     
     func createDataFromGameScreen() {
         gameScreenData = gameScreenDataServise.createData()
+        hearts = "heart: \(movePhysicsServise.hearts)"
         view?.updateGameScreen()
     }
     
@@ -67,7 +69,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func startButtonTap() {
-        timerServise?.startTimer()
+        timerServise?.startStopTimer()
     }
     
     func timerCallback() {

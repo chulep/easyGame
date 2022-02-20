@@ -8,29 +8,25 @@
 import Foundation
 
 protocol TimerServiseProtocol {
-    func startTimer()
-    func timerStop()
+    func startStopTimer()
 }
 
 class TimerServise: TimerServiseProtocol {
     private var timer = Timer()
-    private var isActiveTimer = Bool()
+    private var isActiveTimer = false
     weak var presenter: MainPresenterProtocol?
     
     init(presenter: MainPresenterProtocol) {
         self.presenter = presenter
     }
     
-    func startTimer() {
+    func startStopTimer() {
         if isActiveTimer == false {
             timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(timerCallback), userInfo: nil, repeats: true)
+        } else {
+            timer.invalidate()
         }
-        isActiveTimer = true
-    }
-    
-    func timerStop() {
-        timer.invalidate()
-        isActiveTimer = false
+        isActiveTimer = !isActiveTimer
     }
     
     @objc private func timerCallback() {

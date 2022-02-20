@@ -9,10 +9,18 @@ import Foundation
 
 protocol MovePhysicsServiseProtocol {
     init(obects: [Object], room: (x: Int, y: Int))
+    var hearts: String {get set}
     func universalMove(personage: Object.Name, direction: Object.Direction)
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
+    var hearts = "♡ " {
+        didSet {
+            if hearts == "♡ ♡ ♡ ♡ " {
+                hearts = oldValue
+            }
+        }
+    }
     private var objects: [Object]
     private var room: (x: Int, y: Int)!
     private var hero: Object!
@@ -62,7 +70,6 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
         for i in objects {
             for j in objects {
                 switch (i.name, j.name) {
-                
                 //push box
                 case (.hero, .box):
                     if i.x == j.x && i.y == j.y {
@@ -78,14 +85,16 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
                     if i.x == j.x && i.y == j.y {
                         i.baseMovement(direction: reverseMove)
                     }
-                //gameover
+                //hero drop heart
                 case (.hero, .antiHero):
                     if i.x == j.x && i.y == j.y {
-                        print("GameOver")
+                        let dropHeart = hearts.dropLast(2)
+                        hearts = String(dropHeart)
                     }
                 //collect hearts
                 case (.hero, .heart):
                     if i.x == j.x && i.y == j.y {
+                        hearts += "♡ "
                         j.x = Int.random(in: 1...room.x)
                         j.y = Int.random(in: 1...room.y)
                     }
