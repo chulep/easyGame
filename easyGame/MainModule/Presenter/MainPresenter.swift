@@ -44,11 +44,22 @@ class MainPresenter: MainPresenterProtocol {
     
     func createDataFromGameScreen() {
         if startBool == false {
-            gameScreenData = "Press Start"
+            if movePhysicsServise.hearts == "" {
+                movePhysicsServise.hearts = "♡ "
+            }
+            gameScreenData = "Press START"
+            hearts = ""
             view?.updateGameScreen()
         } else {
             gameScreenData = gameScreenDataServise.createData()
             hearts = "heart: \(movePhysicsServise.hearts)"
+            view?.updateGameScreen()
+        }
+        if movePhysicsServise.hearts == "" {
+            startBool = !startBool
+            timerServise?.startStopTimer()
+            gameScreenData = "Game Over"
+            hearts = ""
             view?.updateGameScreen()
         }
     }
