@@ -20,17 +20,17 @@ struct PersonageBuilder: PersonageBuilderProtocol {
         let hero = Object(name: .hero, room: room, x: Int.random(in: 1...room.x), y: Int.random(in: 1...room.y))
         let antiHero = Object(name: .antiHero, room: room, x: Int.random(in: 1...room.x), y: Int.random(in: 1...room.y))
         let heart = Object(name: .heart, room: room, x: Int.random(in: 1...room.x), y: Int.random(in: 1...room.y))
-        var personages = [hero, antiHero, heart]
+        var all = [hero, antiHero, heart]
         
         for number in 1...palm {
             let palm = Object(name: .palm, index: number, room: room, x: Int.random(in: 1...room.x), y: Int.random(in: 1...room.y))
-            personages.append(palm)
+            all.append(palm)
         }
         
         for number in 1...box {
             let box = Object(name: .box, index: number + palm, room: room, x: Int.random(in: 1...room.x), y: Int.random(in: 1...room.y))
-            personages.append(box)
+            all.append(box)
         }
-        return personages
+        return all
     }
 }

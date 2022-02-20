@@ -69,7 +69,3 @@ class Object {
         self.init(name: name, index: 0, room: room, x: x, y: y)
     }
 }
-
-class Palm: Object {
-    
-}
