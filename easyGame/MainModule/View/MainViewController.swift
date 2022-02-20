@@ -33,7 +33,7 @@ extension MainViewController: MainViewProtocol {
 extension MainViewController {
 
     private func createUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = ColorsHelper.background
 
         for subView in [gamepadView, gameScreenView] {
             subView.translatesAutoresizingMaskIntoConstraints = false

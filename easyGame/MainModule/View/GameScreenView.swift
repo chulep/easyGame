@@ -11,7 +11,7 @@ class GameScreenView: UIView {
     
     let screen: UILabel = {
         var label = UILabel()
-        label.backgroundColor = .gray
+        label.backgroundColor = ColorsHelper.screenAndStartButton
         label.numberOfLines = 17
         label.textAlignment = .center
         label.clipsToBounds = true
@@ -35,6 +35,8 @@ class GameScreenView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        screen.layer.borderWidth = 3
+        screen.layer.borderColor = ColorsHelper.border
         screen.frame = bounds
         screen.layer.cornerRadius = screen.bounds.width / 14
         heats.frame = CGRect(x: 20,

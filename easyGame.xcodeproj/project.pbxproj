@@ -119,13 +119,13 @@
 				6DDDC7B527A3CC4F004634F3 /* SceneDelegate.swift */,
 				6D5D5CEB27C117CE000E5321 /* PersonageBuilder.swift */,
 				6D87B08B27A98D11000B11A4 /* ModuleBuilder.swift */,
+				6DD872D627C2767E0043DF98 /* ColorsHelper.swift */,
 				6D87B08827A982B3000B11A4 /* MainModule */,
 				6DDDC7B927A3CC4F004634F3 /* Main.storyboard */,
 				6DDDC7BF27A3CC50004634F3 /* Assets.xcassets */,
 				6DDDC7C127A3CC50004634F3 /* LaunchScreen.storyboard */,
 				6DDDC7C427A3CC50004634F3 /* Info.plist */,
 				6DDDC7BC27A3CC4F004634F3 /* easyGame.xcdatamodeld */,
-				6DD872D627C2767E0043DF98 /* ColorsHelper.swift */,
 			);
 			path = easyGame;
 			sourceTree = "<group>";

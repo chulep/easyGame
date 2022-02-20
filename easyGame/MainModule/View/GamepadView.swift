@@ -12,7 +12,7 @@ class GamepadView: UIView {
     private let startButton: UIButton = {
         var button = UIButton()
         button.setTitle("START", for: .normal)
-        button.backgroundColor = .systemGray
+        button.backgroundColor = ColorsHelper.screenAndStartButton
         button.tag = 0
         return button
     }()
@@ -20,6 +20,7 @@ class GamepadView: UIView {
     private let upButton: UIButton = {
        let button = UIButton()
         button.setTitle("U", for: .normal)
+        button.backgroundColor = ColorsHelper.upButton
         button.tag = 1
         return button
     }()
@@ -27,6 +28,7 @@ class GamepadView: UIView {
     private let leftButton: UIButton = {
        let button = UIButton()
         button.setTitle("L", for: .normal)
+        button.backgroundColor = ColorsHelper.leftButton
         button.tag = 2
         return button
     }()
@@ -34,6 +36,7 @@ class GamepadView: UIView {
     private let rightButton: UIButton = {
        let button = UIButton()
         button.setTitle("R", for: .normal)
+        button.backgroundColor = ColorsHelper.rightButton
         button.tag = 3
         return button
     }()
@@ -41,25 +44,42 @@ class GamepadView: UIView {
     private let downButton: UIButton = {
        let button = UIButton()
         button.setTitle("D", for: .normal)
+        button.backgroundColor = ColorsHelper.downButton
         button.tag = 4
         return button
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "easyGame"
+        label.textColor = .none
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true //разобраться какого черта не пашет теперь
+        label.backgroundColor = .clear
+        return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .none
+        addSubview(nameLabel)
         
         for button in [startButton, upButton, leftButton, rightButton, downButton] {
-            button.backgroundColor = .systemGray
             button.addTarget(nil, action: #selector(MainViewController.tapButton(_:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.clipsToBounds = true
+            button.layer.borderWidth = 3
+            button.layer.borderColor = ColorsHelper.border
             addSubview(button)
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        //gradientColor
+        nameLabel.textColor = ColorsHelper.createGradientColor(bounds: nameLabel.frame)
+        
         for button in [startButton, upButton, leftButton, rightButton, downButton] {
             if button.tag == 0 {
                 button.layer.cornerRadius = startButton.bounds.height / 2
@@ -71,8 +91,13 @@ class GamepadView: UIView {
         NSLayoutConstraint.activate([
             startButton.topAnchor.constraint(equalTo: topAnchor),
             startButton.rightAnchor.constraint(equalTo: rightAnchor),
-            startButton.heightAnchor.constraint(equalTo: upButton.heightAnchor, multiplier: 1/3),
-            startButton.widthAnchor.constraint(equalTo: upButton.widthAnchor, multiplier: 2/3),
+            startButton.heightAnchor.constraint(equalTo: upButton.heightAnchor, multiplier: 1/2),
+            startButton.widthAnchor.constraint(equalTo: upButton.widthAnchor, multiplier: 3/4),
+            
+            nameLabel.topAnchor.constraint(equalTo: topAnchor),
+            nameLabel.leftAnchor.constraint(equalTo: leftAnchor),
+            nameLabel.heightAnchor.constraint(equalTo: upButton.heightAnchor, multiplier: 2/2),
+            nameLabel.widthAnchor.constraint(equalTo: upButton.widthAnchor, multiplier: 6/4),
             
             upButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             upButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 9/30),
