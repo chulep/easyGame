@@ -10,10 +10,11 @@ import Foundation
 protocol GameScreenDataServiseProtocol {
     init(objects: [Object], room: (x: Int, y: Int))
     func createData() -> String
+    var objects: [Object] {get set}
 }
 
 struct GameScreenDataServise: GameScreenDataServiseProtocol {
-    private var objects: [Object]
+    var objects: [Object]
     private var room: (x: Int, y: Int)
     
     init(objects: [Object], room: (x: Int, y: Int)) {
