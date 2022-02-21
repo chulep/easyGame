@@ -24,8 +24,8 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewProtocol {
     
     func updateGameScreen() {
-        gameScreenView.screen.text = presenter.gameScreenData
-        gameScreenView.heats.text = presenter.heartsGameScreen
+        gameScreenView.screenLabel.text = presenter.gameScreenData
+        gameScreenView.heatsLabel.text = presenter.heartsGameScreen
     }
 }
 
@@ -33,7 +33,7 @@ extension MainViewController: MainViewProtocol {
 extension MainViewController {
 
     private func createUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColorsHelper.background
 
         for subView in [gamepadView, gameScreenView] {
             subView.translatesAutoresizingMaskIntoConstraints = false
