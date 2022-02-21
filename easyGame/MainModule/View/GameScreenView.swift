@@ -9,16 +9,16 @@ import UIKit
 
 class GameScreenView: UIView {
     
-    let screen: UILabel = {
+    let screenLabel: UILabel = {
         var label = UILabel()
-        label.backgroundColor = ColorsHelper.screenAndStartButton
+        label.backgroundColor = UIColorsHelper.screenAndStartButton
         label.numberOfLines = 17
         label.textAlignment = .center
         label.clipsToBounds = true
         return label
     }()
     
-    let heats: UILabel = {
+    let heatsLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
         label.numberOfLines = 1
@@ -26,23 +26,41 @@ class GameScreenView: UIView {
         return label
     }()
     
+    private let brandLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.text = "easyGame"
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        //при динамическом размере текста центруется только так
+        label.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(screen)
-        addSubview(heats)
-        
+        for view in [screenLabel, heatsLabel, brandLabel] {
+            addSubview(view)
+        }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        screen.layer.borderWidth = 3
-        screen.layer.borderColor = ColorsHelper.border
-        screen.frame = bounds
-        screen.layer.cornerRadius = screen.bounds.width / 14
-        heats.frame = CGRect(x: 20,
-                             y: screen.bounds.height - heats.bounds.height,
-                             width: screen.bounds.width / 2,
-                             height: screen.bounds.height / 6)
+        screenLabel.layer.borderWidth = 3
+        screenLabel.layer.borderColor = UIColorsHelper.border
+        screenLabel.frame = bounds
+        screenLabel.layer.cornerRadius = screenLabel.bounds.width / 14
+        
+        heatsLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
+                             y: screenLabel.bounds.height - heatsLabel.bounds.height,
+                             width: screenLabel.bounds.width / 2,
+                             height: screenLabel.bounds.height / 6)
+        
+        brandLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
+                                  y: screenLabel.bounds.height,
+                                  width: screenLabel.bounds.width / 4,
+                                  height: screenLabel.bounds.width / 10)
+        brandLabel.textColor = UIColorsHelper.createGradientColor(bounds: brandLabel.bounds)
     }
     
     required init?(coder: NSCoder) {
