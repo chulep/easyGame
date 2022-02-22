@@ -41,10 +41,9 @@ extension MainViewController {
         }
 
         //MARK: - Constraints
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         NSLayoutConstraint.activate([
             
-            gameScreenView.topAnchor.constraint(equalTo: view.topAnchor, constant: statusBarHeight + 10),
+            gameScreenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             gameScreenView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             gameScreenView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             gameScreenView.heightAnchor.constraint(equalTo: gameScreenView.widthAnchor),
