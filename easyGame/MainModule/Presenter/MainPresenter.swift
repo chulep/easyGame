@@ -7,11 +7,6 @@
 
 import Foundation
 
-//MARK: - Main Protocols
-protocol MainViewProtocol: AnyObject {
-    func updateGameScreen()
-}
-
 protocol MainPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol)
     var gameScreenData: String? {get set}
@@ -116,7 +111,7 @@ class MainPresenter: MainPresenterProtocol {
     private func refreshObject() {
         for i in gameScreenDataServise.objects {
             i.x = Int.random(in: 1...PersonageBuilder.create.room.x)
-            i.x = Int.random(in: 1...PersonageBuilder.create.room.y)
+            i.y = Int.random(in: 1...PersonageBuilder.create.room.y)
         }
     }
 }
