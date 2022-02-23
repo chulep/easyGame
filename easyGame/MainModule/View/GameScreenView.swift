@@ -46,16 +46,17 @@ class GameScreenView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        //screen
+        screenLabel.frame = bounds
         screenLabel.layer.borderWidth = 3
         screenLabel.layer.borderColor = UIColorsHelper.border
-        screenLabel.frame = bounds
         screenLabel.layer.cornerRadius = screenLabel.bounds.width / 14
-        
+        //hearts for screen
         heatsLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
                              y: screenLabel.bounds.height - heatsLabel.bounds.height,
                              width: screenLabel.bounds.width / 2,
                              height: screenLabel.bounds.height / 6)
-        
+        //brand
         brandLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
                                   y: screenLabel.bounds.height,
                                   width: screenLabel.bounds.width / 4,
