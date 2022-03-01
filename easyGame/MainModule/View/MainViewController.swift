@@ -63,7 +63,7 @@ extension MainViewController {
         }
         //MARK: - Constraints
         let safeArea = UIApplication.shared.windows.first!.safeAreaInsets.top
-        let sqareSize = view.bounds.height <= 780 ? view.bounds.height / 2 - safeArea - 3 : view.bounds.width - view.bounds.width / 20
+        let sqareSize = view.bounds.height < 780 ? view.bounds.height / 2 - safeArea - 3 : view.bounds.width - view.bounds.width / 20
     
         NSLayoutConstraint.activate([
             gameScreenView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -3),
