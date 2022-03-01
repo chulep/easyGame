@@ -63,18 +63,18 @@ extension MainViewController {
         }
         //MARK: - Constraints
         let safeArea = UIApplication.shared.windows.first!.safeAreaInsets.top
-        let sqareSize = view.bounds.height <= 780 ? view.bounds.height / 2 - safeArea - 3 : view.bounds.width - view.bounds.width  / 20
+        let sqareSize = view.bounds.height <= 780 ? view.bounds.height / 2 - safeArea - 3 : view.bounds.width - view.bounds.width / 20
     
         NSLayoutConstraint.activate([
             gameScreenView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -3),
             gameScreenView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gameScreenView.widthAnchor.constraint(equalToConstant: sqareSize),
-            gameScreenView.heightAnchor.constraint(equalTo: gameScreenView.widthAnchor),
+            gameScreenView.heightAnchor.constraint(equalToConstant: sqareSize),
             
             gamepadView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 3),
             gamepadView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gamepadView.widthAnchor.constraint(equalToConstant: sqareSize),
-            gamepadView.heightAnchor.constraint(equalTo: gamepadView.widthAnchor),
+            gamepadView.heightAnchor.constraint(equalToConstant: sqareSize)
         ])
     }
 }
