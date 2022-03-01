@@ -12,7 +12,7 @@ class GamepadView: UIView {
     private let startButton: UIButton = {
         var button = UIButton()
         button.setTitle("START", for: .normal)
-        button.backgroundColor = UIColorsHelper.screenAndStartButton
+        button.backgroundColor = UIColorsHelper.screenAndOtherButton
         button.tag = 0
         return button
     }()

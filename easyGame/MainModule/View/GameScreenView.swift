@@ -11,7 +11,7 @@ class GameScreenView: UIView {
     
     let screenLabel: UILabel = {
         var label = UILabel()
-        label.backgroundColor = UIColorsHelper.screenAndStartButton
+        label.backgroundColor = UIColorsHelper.screenAndOtherButton
         label.numberOfLines = 17
         label.textAlignment = .center
         label.clipsToBounds = true

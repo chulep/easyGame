@@ -57,39 +57,24 @@ extension MainViewController {
     private func createUI() {
         view.backgroundColor = UIColorsHelper.background
 
-        for subView in [gamepadView, gameScreenView] {
-            subView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(subView)
+        for subview in [gamepadView, gameScreenView] {
+            subview.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(subview)
         }
         //MARK: - Constraints
-        if view.bounds.width >= 375 && view.bounds.height >= 812 {
-            //IPhone X +
-            NSLayoutConstraint.activate([
-                gameScreenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-                gameScreenView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-                gameScreenView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-                gameScreenView.heightAnchor.constraint(equalTo: gameScreenView.widthAnchor),
-                
-                gamepadView.topAnchor.constraint(equalTo: gameScreenView.bottomAnchor, constant: 50),
-                gamepadView.leftAnchor.constraint(equalTo: gameScreenView.leftAnchor),
-                gamepadView.rightAnchor.constraint(equalTo: gameScreenView.rightAnchor),
-                gamepadView.heightAnchor.constraint(equalTo: gamepadView.widthAnchor)
-            ])
-        } else {
-            //Iphone 8P -
-            NSLayoutConstraint.activate([
-                gameScreenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                gameScreenView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 29),
-                gameScreenView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -29),
-                gameScreenView.heightAnchor.constraint(equalTo: gameScreenView.widthAnchor),
-                
-                gamepadView.topAnchor.constraint(equalTo: gameScreenView.bottomAnchor, constant: 10),
-                gamepadView.leftAnchor.constraint(equalTo: gameScreenView.leftAnchor),
-                gamepadView.rightAnchor.constraint(equalTo: gameScreenView.rightAnchor),
-                gamepadView.heightAnchor.constraint(equalTo: gamepadView.widthAnchor)
-            ])
-        }
+        let safeArea = UIApplication.shared.windows.first!.safeAreaInsets.top
+        let sqareSize = view.bounds.height <= 780 ? view.bounds.height / 2 - safeArea - 3 : view.bounds.width - view.bounds.width  / 20
+    
+        NSLayoutConstraint.activate([
+            gameScreenView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -3),
+            gameScreenView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            gameScreenView.widthAnchor.constraint(equalToConstant: sqareSize),
+            gameScreenView.heightAnchor.constraint(equalTo: gameScreenView.widthAnchor),
+            
+            gamepadView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 3),
+            gamepadView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            gamepadView.widthAnchor.constraint(equalToConstant: sqareSize),
+            gamepadView.heightAnchor.constraint(equalTo: gamepadView.widthAnchor),
+        ])
     }
 }
-
-
