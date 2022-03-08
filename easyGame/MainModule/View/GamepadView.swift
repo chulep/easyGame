@@ -10,7 +10,7 @@ import UIKit
 class GamepadView: UIView {
     
     private let startButton: UIButton = {
-        var button = UIButton()
+        var button = CustomButtonAnimate()
         button.setTitle("START", for: .normal)
         button.backgroundColor = UIColorsHelper.screenAndOtherButton
         button.tag = 0
@@ -18,7 +18,7 @@ class GamepadView: UIView {
     }()
     
     private let upButton: UIButton = {
-        let button = UIButton()
+        let button = CustomButtonAnimate()
         button.setTitle("U", for: .normal)
         button.backgroundColor = UIColorsHelper.upButton
         button.tag = 1
@@ -26,7 +26,7 @@ class GamepadView: UIView {
     }()
     
     private let leftButton: UIButton = {
-        let button = UIButton()
+        let button = CustomButtonAnimate()
         button.setTitle("L", for: .normal)
         button.backgroundColor = UIColorsHelper.leftButton
         button.tag = 2
@@ -34,7 +34,7 @@ class GamepadView: UIView {
     }()
     
     private let rightButton: UIButton = {
-        let button = UIButton()
+        let button = CustomButtonAnimate()
         button.setTitle("R", for: .normal)
         button.backgroundColor = UIColorsHelper.rightButton
         button.tag = 3
@@ -42,18 +42,28 @@ class GamepadView: UIView {
     }()
     
     private let downButton: UIButton = {
-        let button = UIButton()
+        let button = CustomButtonAnimate()
         button.setTitle("D", for: .normal)
         button.backgroundColor = UIColorsHelper.downButton
         button.tag = 4
         return button
     }()
     
+    private let infoButton: UIButton = {
+        let button = CustomButtonAnimate()
+        button.setTitle("?", for: .normal)
+        button.backgroundColor = UIColorsHelper.screenAndOtherButton
+        button.tag = 5
+        return button
+    }()
+    
+    private lazy var allButtons = [startButton, upButton, leftButton, rightButton, downButton, infoButton]
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .none
         
-        for button in [startButton, upButton, leftButton, rightButton, downButton] {
+        for button in allButtons {
             button.addTarget(nil, action: #selector(MainViewController.tapButton(_:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.clipsToBounds = true
@@ -66,12 +76,8 @@ class GamepadView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        for button in [startButton, upButton, leftButton, rightButton, downButton] {
-            if button.tag == 0 {
-                button.layer.cornerRadius = startButton.bounds.height / 2
-            } else {
-                button.layer.cornerRadius = button.bounds.height / 2
-            }
+        for button in allButtons {
+            button.layer.cornerRadius = button.bounds.height / 2
         }
         //MARK: - Constraints
         NSLayoutConstraint.activate([
@@ -98,7 +104,12 @@ class GamepadView: UIView {
             downButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             downButton.widthAnchor.constraint(equalTo: upButton.widthAnchor),
             downButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
-            downButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            downButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            infoButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
+            infoButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            infoButton.heightAnchor.constraint(equalTo: upButton.heightAnchor, multiplier: 2/5),
+            infoButton.widthAnchor.constraint(equalTo: infoButton.heightAnchor)
         ])
     }
     
