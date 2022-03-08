@@ -49,11 +49,19 @@ class GamepadView: UIView {
         return button
     }()
     
+    private let infoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("?", for: .normal)
+        button.backgroundColor = UIColorsHelper.screenAndOtherButton
+        button.tag = 5
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .none
         
-        for button in [startButton, upButton, leftButton, rightButton, downButton] {
+        for button in [startButton, upButton, leftButton, rightButton, downButton, infoButton] {
             button.addTarget(nil, action: #selector(MainViewController.tapButton(_:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.clipsToBounds = true
@@ -66,12 +74,8 @@ class GamepadView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        for button in [startButton, upButton, leftButton, rightButton, downButton] {
-            if button.tag == 0 {
-                button.layer.cornerRadius = startButton.bounds.height / 2
-            } else {
-                button.layer.cornerRadius = button.bounds.height / 2
-            }
+        for button in [startButton, upButton, leftButton, rightButton, downButton, infoButton] {
+            button.layer.cornerRadius = button.bounds.height / 2
         }
         //MARK: - Constraints
         NSLayoutConstraint.activate([
@@ -98,7 +102,12 @@ class GamepadView: UIView {
             downButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             downButton.widthAnchor.constraint(equalTo: upButton.widthAnchor),
             downButton.heightAnchor.constraint(equalTo: upButton.widthAnchor),
-            downButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            downButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            infoButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
+            infoButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            infoButton.heightAnchor.constraint(equalTo: upButton.heightAnchor, multiplier: 2/5),
+            infoButton.widthAnchor.constraint(equalTo: infoButton.heightAnchor)
         ])
     }
     
