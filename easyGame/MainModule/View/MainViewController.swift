@@ -50,8 +50,6 @@ extension MainViewController: MainViewProtocol {
     }
 }
 
-
-
 //MARK: - Create UI
 extension MainViewController {
     private func createUI() {
@@ -71,7 +69,7 @@ extension MainViewController {
             gameScreenView.widthAnchor.constraint(equalToConstant: sqareSize),
             gameScreenView.heightAnchor.constraint(equalToConstant: sqareSize),
             
-            gamepadView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 3),
+            gamepadView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 12),
             gamepadView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gamepadView.widthAnchor.constraint(equalToConstant: sqareSize),
             gamepadView.heightAnchor.constraint(equalToConstant: sqareSize)
