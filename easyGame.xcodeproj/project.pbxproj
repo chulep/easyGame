@@ -119,8 +119,8 @@
 			children = (
 				6DDDC7B327A3CC4F004634F3 /* AppDelegate.swift */,
 				6DDDC7B527A3CC4F004634F3 /* SceneDelegate.swift */,
-				6D5D5CEB27C117CE000E5321 /* PersonageBuilder.swift */,
 				6D87B08B27A98D11000B11A4 /* ModuleBuilder.swift */,
+				6D5D5CEB27C117CE000E5321 /* PersonageBuilder.swift */,
 				6DD872D627C2767E0043DF98 /* UIColorsHelper.swift */,
 				6D87B08827A982B3000B11A4 /* MainModule */,
 				6DDDC7B927A3CC4F004634F3 /* Main.storyboard */,

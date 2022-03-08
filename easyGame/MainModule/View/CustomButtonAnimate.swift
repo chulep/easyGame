@@ -12,7 +12,7 @@ class CustomButtonAnimate: UIButton {
             didSet {
                 guard let color = backgroundColor else { return }
                 layer.removeAllAnimations()
-                UIView.animate(withDuration: 0.4, delay: 0.0, options: [.allowUserInteraction], animations: {
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
                     self.backgroundColor = color.withAlphaComponent(self.isHighlighted ? 0.3 : 1)
             })
         }
