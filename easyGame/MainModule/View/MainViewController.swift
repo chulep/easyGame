@@ -36,6 +36,8 @@ class MainViewController: UIViewController {
             presenter.moveRight(.hero)
         case 4:
             presenter.moveDown(.hero)
+        case 5:
+            present(ModuleBuilder.createInfoVC(), animated: true, completion: nil)
         default:
             break
         }

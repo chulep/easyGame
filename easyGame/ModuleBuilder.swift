@@ -23,4 +23,13 @@ class ModuleBuilder: ModuleBuilderProtocol {
         view.presenter = presenter
         return view
     }
+    
+    static func createInfoVC() -> UIViewController {
+        let info = InfoModel()
+        let VC = InfoViewController()
+        let presenter = InfoPresenter(view: VC, info: info)
+        VC.presenter = presenter
+        VC.
+        return VC
+    }
 }
