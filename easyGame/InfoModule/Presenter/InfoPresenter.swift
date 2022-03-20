@@ -8,8 +8,8 @@
 import Foundation
 
 protocol InfoPresenterProtocol: AnyObject {
-    func close()
     var info: InfoModel {get}
+    func close()
 }
 
 class InfoPresenter: InfoPresenterProtocol {

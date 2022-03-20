@@ -32,3 +32,9 @@ extension InfoViewController: InfoViewProtocol {
         infoView.versionLabel.text = "ver" + presenter.info.version
     }
 }
+
+extension InfoViewController {
+    @objc func tapCloseButton() {
+        dismiss(animated: true, completion: nil)
+    }
+}

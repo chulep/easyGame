@@ -29,7 +29,7 @@ class ModuleBuilder: ModuleBuilderProtocol {
         let VC = InfoViewController()
         let presenter = InfoPresenter(view: VC, info: info)
         VC.presenter = presenter
-        VC.
+        VC.modalPresentationStyle = .popover
         return VC
     }
 }
