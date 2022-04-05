@@ -56,6 +56,7 @@ class MainPresenter: MainPresenterProtocol {
             refreshObject()
             view?.updateGameScreen()
         }
+        print(movePhysicsServise.score)
     }
     
     //MARK: - Movement

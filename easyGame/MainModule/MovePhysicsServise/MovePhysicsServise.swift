@@ -11,14 +11,17 @@ protocol MovePhysicsServiseProtocol {
     init(obects: [Object], room: (x: Int, y: Int))
     var hearts: String {get set}
     var objects: [Object] {get set}
+    var score: Int {get set}
     func universalMove(personage: Object.Name, direction: Object.Direction)
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
+    var score = 0
     var hearts = "♡ " {
         didSet {
             if hearts == "♡ ♡ ♡ ♡ " {
                 hearts = oldValue
+                score += 1
             }
         }
     }

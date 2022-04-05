@@ -9,7 +9,6 @@ import Foundation
 
 protocol InfoPresenterProtocol: AnyObject {
     var info: InfoModel {get}
-    func close()
 }
 
 class InfoPresenter: InfoPresenterProtocol {
@@ -20,9 +19,5 @@ class InfoPresenter: InfoPresenterProtocol {
     init(view: InfoViewProtocol, info: InfoModel) {
         self.view = view
         self.info = info
-    }
-    
-    func close() {
-        
     }
 }
