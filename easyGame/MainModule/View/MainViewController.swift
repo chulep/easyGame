@@ -48,7 +48,8 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewProtocol {
     func updateGameScreen() {
         gameScreenView.screenLabel.text = presenter.gameScreenData
-        gameScreenView.heatsLabel.text = presenter.heartsGameScreen
+        gameScreenView.heatsLabel.text = presenter.heartsForGameScreen
+        gameScreenView.scoreLabel.text = presenter.scoreFroGameScreen
     }
 }
 

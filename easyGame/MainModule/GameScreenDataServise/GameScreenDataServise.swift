@@ -10,6 +10,7 @@ import Foundation
 protocol GameScreenDataServiseProtocol {
     init(objects: [Object], room: (x: Int, y: Int))
     func createData() -> String
+    func refresh()
     var objects: [Object] {get set}
 }
 
@@ -20,6 +21,13 @@ struct GameScreenDataServise: GameScreenDataServiseProtocol {
     init(objects: [Object], room: (x: Int, y: Int)) {
         self.objects = objects
         self.room = room
+    }
+    
+    func refresh() {
+        for i in objects {
+            i.x = Int.random(in: 1...PersonageBuilder.create.room.x)
+            i.y = Int.random(in: 1...PersonageBuilder.create.room.y)
+        }
     }
     
     func createData() -> String {

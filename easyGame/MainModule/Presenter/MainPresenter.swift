@@ -8,9 +8,10 @@
 import Foundation
 
 protocol MainPresenterProtocol: AnyObject {
-    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol)
+    init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
     var gameScreenData: String? {get set}
     var timerServise: TimerServiseProtocol? {get}
+    var scoreServise: ScoreServiseProtocol! { get } //
     func createDataFromGameScreen()
     func timerCallback()
     func startButtonTap()
@@ -23,40 +24,44 @@ protocol MainPresenterProtocol: AnyObject {
 //MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
     
+    var scoreServise: ScoreServiseProtocol!
     private var startBool = false
-    var heartsGameScreen = String()
+    var heartsForGameScreen = String()
+    var scoreFroGameScreen = String()
     var timerServise: TimerServiseProtocol?
     weak var view: MainViewProtocol?
     var gameScreenData: String?
     private var movePhysicsServise: MovePhysicsServiseProtocol
     private var gameScreenDataServise: GameScreenDataServiseProtocol
     
-    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol) {
+    required init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol) {
         self.view = view
         self.movePhysicsServise = movePhysicsServise
         self.gameScreenDataServise = gameScreenDataServise
+        self.scoreServise = scoreServise
     }
     
     func createDataFromGameScreen() {
         if startBool == false {
             gameScreenData = "Press START"
-            heartsGameScreen = ""
+            heartsForGameScreen = ""
+            scoreFroGameScreen = ""
             view?.updateGameScreen()
         } else {
             gameScreenData = gameScreenDataServise.createData()
-            heartsGameScreen = "heart: \(movePhysicsServise.hearts)"
+            heartsForGameScreen = "heart: \(scoreServise.hearts)"
+            scoreFroGameScreen = "score: \(scoreServise.score)"
             view?.updateGameScreen()
         }
-        if movePhysicsServise.hearts == "" {
+        if scoreServise?.hearts == "" {
             startBool = !startBool
             timerServise?.startStopTimer()
             gameScreenData = "Game Over"
-            heartsGameScreen = ""
-            movePhysicsServise.hearts = "♡ "
-            refreshObject()
+            heartsForGameScreen = ""
+            scoreServise.reset()
+            gameScreenDataServise.refresh()
             view?.updateGameScreen()
         }
-        print(movePhysicsServise.score)
     }
     
     //MARK: - Movement
@@ -106,13 +111,6 @@ class MainPresenter: MainPresenterProtocol {
             moveDown(.antiHero)
         default:
             break
-        }
-    }
-    
-    private func refreshObject() {
-        for i in gameScreenDataServise.objects {
-            i.x = Int.random(in: 1...PersonageBuilder.create.room.x)
-            i.y = Int.random(in: 1...PersonageBuilder.create.room.y)
         }
     }
 }

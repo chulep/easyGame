@@ -8,31 +8,23 @@
 import Foundation
 
 protocol MovePhysicsServiseProtocol {
-    init(obects: [Object], room: (x: Int, y: Int))
-    var hearts: String {get set}
+    init(obects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol)
     var objects: [Object] {get set}
-    var score: Int {get set}
+    var scoreServise: ScoreServiseProtocol? { get } //
     func universalMove(personage: Object.Name, direction: Object.Direction)
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
-    var score = 0
-    var hearts = "♡ " {
-        didSet {
-            if hearts == "♡ ♡ ♡ ♡ " {
-                hearts = oldValue
-                score += 1
-            }
-        }
-    }
+    var scoreServise: ScoreServiseProtocol? //
     var objects: [Object]
     private var room: (x: Int, y: Int)!
     private var hero: Object!
     private var antiHero: Object!
     
-    required init(obects: [Object], room: (x: Int, y: Int)) {
+    required init(obects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol) {
         self.objects = obects
         self.room = room
+        self.scoreServise = scoreServise
         searchHeroes()
     }
     
@@ -92,13 +84,12 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
                 //hero drop heart
                 case (.hero, .antiHero):
                     if i.x == j.x && i.y == j.y {
-                        let dropHeart = hearts.dropLast(2)
-                        hearts = String(dropHeart)
+                        scoreServise?.dropHeart()
                     }
                 //collect hearts
                 case (.hero, .heart):
                     if i.x == j.x && i.y == j.y {
-                        hearts += "♡ "
+                        scoreServise?.addHeart()
                         j.x = Int.random(in: 1...room.x)
                         j.y = Int.random(in: 1...room.y)
                     }

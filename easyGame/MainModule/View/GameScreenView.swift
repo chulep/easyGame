@@ -26,6 +26,14 @@ class GameScreenView: UIView {
         return label
     }()
     
+    let scoreLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.numberOfLines = 1
+        label.textAlignment = .right
+        return label
+    }()
+    
     private let brandLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -39,7 +47,7 @@ class GameScreenView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        for view in [screenLabel, heatsLabel, brandLabel] {
+        for view in [screenLabel, heatsLabel, brandLabel, scoreLabel] {
             addSubview(view)
         }
     }
@@ -54,8 +62,13 @@ class GameScreenView: UIView {
         //hearts for screen
         heatsLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
                              y: screenLabel.bounds.height - heatsLabel.bounds.height,
-                             width: screenLabel.bounds.width / 2,
+                             width: screenLabel.bounds.width / 2 - screenLabel.bounds.width / 14,
                              height: screenLabel.bounds.height / 6)
+        //score
+        scoreLabel.frame = CGRect(x: screenLabel.bounds.width / 2,
+                                  y: screenLabel.bounds.height - scoreLabel.bounds.height,
+                                  width: screenLabel.bounds.width / 2 - screenLabel.bounds.width / 14,
+                                  height: screenLabel.bounds.height / 6)
         //brand
         brandLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
                                   y: screenLabel.bounds.height,
