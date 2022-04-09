@@ -61,9 +61,9 @@ class GameScreenView: UIView {
         screenLabel.layer.cornerRadius = screenLabel.bounds.width / 14
         //hearts for screen
         heatsLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
-                             y: screenLabel.bounds.height - heatsLabel.bounds.height,
-                             width: screenLabel.bounds.width / 2 - screenLabel.bounds.width / 14,
-                             height: screenLabel.bounds.height / 6)
+                                  y: screenLabel.bounds.height - heatsLabel.bounds.height,
+                                  width: screenLabel.bounds.width / 2 - screenLabel.bounds.width / 14,
+                                  height: screenLabel.bounds.height / 6)
         //score
         scoreLabel.frame = CGRect(x: screenLabel.bounds.width / 2,
                                   y: screenLabel.bounds.height - scoreLabel.bounds.height,

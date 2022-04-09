@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol InfoViewProtocol: AnyObject {
     func loadInfo()
@@ -15,10 +16,13 @@ class InfoViewController: UIViewController {
     
     var presenter: InfoPresenter!
     
+    var scoreData = [ScoreData]()
+    
     var tableView: UITableView = {
         var tableView = UITableView()
         tableView.isScrollEnabled = false
         tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -85,6 +89,16 @@ class InfoViewController: UIViewController {
         nameLabel.textColor = UIColorsHelper.createGradientColor(bounds: nameLabel.bounds)
         closeButon.layer.cornerRadius = closeButon.bounds.height / 2
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
+        do {
+            try scoreData = context.fetch(fetchRequest)
+        } catch {
+            print("load error")
+        }
+    }
 }
 
 extension InfoViewController: InfoViewProtocol {
@@ -132,12 +146,14 @@ extension InfoViewController {
 
 extension InfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        scoreData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .clear
+        cell.backgroundColor = .white
+        cell.textLabel?.text = scoreData[indexPath.row].score
+        cell.detailTextLabel?.text = scoreData[indexPath.row].date
         return cell
     }
 }

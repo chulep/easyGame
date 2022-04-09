@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 protocol MainPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
@@ -23,6 +25,8 @@ protocol MainPresenterProtocol: AnyObject {
 
 //MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
+    
+    var dataTask = [ScoreData]()
     
     var scoreServise: ScoreServiseProtocol!
     private var startBool = false
@@ -58,9 +62,10 @@ class MainPresenter: MainPresenterProtocol {
             timerServise?.startStopTimer()
             gameScreenData = "Game Over"
             heartsForGameScreen = ""
-            scoreServise.reset()
             gameScreenDataServise.refresh()
             view?.updateGameScreen()
+            saveScore(scoreServise.score)
+            scoreServise.reset()
         }
     }
     
@@ -111,6 +116,30 @@ class MainPresenter: MainPresenterProtocol {
             moveDown(.antiHero)
         default:
             break
+        }
+    }
+    
+    func saveScore(_ score: Int) {
+        var currentArrayScore = [ScoreData]()
+        let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
+        let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
+        let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
+        object.date = "none"
+        object.score = "\(score)"
+        
+        do {
+            try currentArrayScore = context.fetch(fetchRequest)
+            print(currentArrayScore.count)
+            print(currentArrayScore)
+            if try context.fetch(fetchRequest).count <= 5 {
+                try context.save()
+            } else {
+                context.delete(currentArrayScore[5])
+                try context.save()
+            }
+        } catch {
+            print("save error")
         }
     }
 }
