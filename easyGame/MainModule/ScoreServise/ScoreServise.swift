@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 protocol ScoreServiseProtocol {
     var score: Int { get set }
@@ -13,6 +14,7 @@ protocol ScoreServiseProtocol {
     func addHeart()
     func dropHeart()
     func reset()
+    func saveScore()
 }
 
 class ScoreServise: ScoreServiseProtocol {
@@ -39,6 +41,31 @@ class ScoreServise: ScoreServiseProtocol {
     func reset() {
         score = 0
         hearts = "♡ "
+    }
+    
+    func saveScore() {
+        var currentArrayScore = [ScoreData]()
+        let coreDataStack = CoreDataStack()
+        let context = coreDataStack.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
+        let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
+        let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
+        object.date = "none"
+        object.score = "\(score)"
+        
+        do {
+            try currentArrayScore = context.fetch(fetchRequest)
+            print(currentArrayScore.count)
+            print(currentArrayScore)
+            if try context.fetch(fetchRequest).count <= 5 {
+                try context.save()
+            } else {
+                context.delete(currentArrayScore[5])
+                try context.save()
+            }
+        } catch {
+            print("save error")
+        }
     }
     
 }

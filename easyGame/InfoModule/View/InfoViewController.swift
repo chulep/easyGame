@@ -16,8 +16,6 @@ class InfoViewController: UIViewController {
     
     var presenter: InfoPresenter!
     
-    var scoreData = [ScoreData]()
-    
     var tableView: UITableView = {
         var tableView = UITableView()
         tableView.isScrollEnabled = false
@@ -34,7 +32,7 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    var corpLabel: UILabel = {
+    var createrLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -69,7 +67,7 @@ class InfoViewController: UIViewController {
         return button
     }()
     
-    lazy private var allElement = [nameLabel, versionLabel, corpLabel, locationLabel, closeButon, tableView]
+    lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, tableView]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +76,7 @@ class InfoViewController: UIViewController {
             element.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(element)
         }
+        presenter.info.loadScore()
         loadInfo()
         createUI()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -91,14 +90,7 @@ class InfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let coreDataStack = CoreDataStack()
-        let context = coreDataStack.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
-        do {
-            try scoreData = context.fetch(fetchRequest)
-        } catch {
-            print("load error")
-        }
+        presenter.info.loadScore()
     }
     
 }
@@ -107,7 +99,7 @@ extension InfoViewController: InfoViewProtocol {
     
     func loadInfo() {
         nameLabel.text = "easyGame"
-        corpLabel.text = presenter.info.creater
+        createrLabel.text = presenter.info.creater
         locationLabel.text = presenter.info.location
         versionLabel.text = presenter.info.version
     }
@@ -134,10 +126,10 @@ extension InfoViewController {
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            corpLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 70),
-            corpLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            createrLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 70),
+            createrLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            locationLabel.topAnchor.constraint(equalTo: corpLabel.topAnchor, constant: 30),
+            locationLabel.topAnchor.constraint(equalTo: createrLabel.topAnchor, constant: 30),
             locationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             tableView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 30),
@@ -155,14 +147,14 @@ extension InfoViewController {
 extension InfoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        scoreData.count
+        presenter.info.score.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .white
-        cell.textLabel?.text = scoreData[indexPath.row].score
-        cell.detailTextLabel?.text = scoreData[indexPath.row].date
+        cell.textLabel?.text = presenter.info.score[indexPath.row].score
+        cell.detailTextLabel?.text = presenter.info.score[indexPath.row].date
         return cell
     }
     

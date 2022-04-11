@@ -13,7 +13,6 @@ protocol InfoPresenterProtocol: AnyObject {
 
 class InfoPresenter: InfoPresenterProtocol {
     
-    var scoreData = [ScoreData]()
     var info: InfoModel
     private weak var view: InfoViewProtocol!
     

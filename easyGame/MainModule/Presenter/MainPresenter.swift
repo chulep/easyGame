@@ -12,8 +12,8 @@ protocol MainPresenterProtocol: AnyObject {
     
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
     
-    var gameScreenData: String? {get set}
-    var timerServise: TimerServiseProtocol? {get}
+    var gameScreenData: String? { get set }
+    var timerServise: TimerServiseProtocol? { get }
     var scoreServise: ScoreServiseProtocol! { get } //
     func createDataFromGameScreen()
     func timerCallback()
@@ -65,7 +65,7 @@ class MainPresenter: MainPresenterProtocol {
             heartsForGameScreen = ""
             gameScreenDataServise.refresh()
             view?.updateGameScreen()
-            saveScore(scoreServise.score)
+            scoreServise.saveScore()
             scoreServise.reset()
         }
     }
@@ -117,31 +117,6 @@ class MainPresenter: MainPresenterProtocol {
             moveDown(.antiHero)
         default:
             break
-        }
-    }
-    
-    func saveScore(_ score: Int) {
-        var currentArrayScore = [ScoreData]()
-        let coreDataStack = CoreDataStack()
-        let context = coreDataStack.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
-        let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
-        let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
-        object.date = "none"
-        object.score = "\(score)"
-        
-        do {
-            try currentArrayScore = context.fetch(fetchRequest)
-            print(currentArrayScore.count)
-            print(currentArrayScore)
-            if try context.fetch(fetchRequest).count <= 5 {
-                try context.save()
-            } else {
-                context.delete(currentArrayScore[5])
-                try context.save()
-            }
-        } catch {
-            print("save error")
         }
     }
     
