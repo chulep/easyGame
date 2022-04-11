@@ -68,4 +68,5 @@ class Object {
     convenience init(name: Name, room: (x: Int, y: Int), x: Int, y: Int) {
         self.init(name: name, index: 0, room: room, x: x, y: y)
     }
+    
 }

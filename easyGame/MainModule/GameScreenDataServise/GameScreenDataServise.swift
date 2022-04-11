@@ -15,6 +15,7 @@ protocol GameScreenDataServiseProtocol {
 }
 
 struct GameScreenDataServise: GameScreenDataServiseProtocol {
+    
     var objects: [Object]
     private var room: (x: Int, y: Int)
     
@@ -63,4 +64,5 @@ struct GameScreenDataServise: GameScreenDataServiseProtocol {
         }
         return text
     }
+    
 }

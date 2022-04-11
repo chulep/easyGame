@@ -8,6 +8,7 @@
 import UIKit
 
 struct UIColorsHelper {
+    
     static let screenAndOtherButton = UIColor(displayP3Red: 145/255, green: 145/255, blue: 145/255, alpha: 1)
     static let background = UIColor(displayP3Red: 245/255, green: 238/255, blue: 238/255, alpha: 1)
     static let upButton = UIColor(displayP3Red: 42/255, green: 31/255, blue: 208/255, alpha: 1)
@@ -28,4 +29,5 @@ struct UIColorsHelper {
         UIGraphicsEndImageContext()
         return UIColor(patternImage: image!)
     }
+    
 }

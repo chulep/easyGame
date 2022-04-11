@@ -16,6 +16,7 @@ protocol ScoreServiseProtocol {
 }
 
 class ScoreServise: ScoreServiseProtocol {
+    
     var score = 0
     var hearts = "♡ " {
         didSet {
@@ -39,4 +40,5 @@ class ScoreServise: ScoreServiseProtocol {
         score = 0
         hearts = "♡ "
     }
+    
 }

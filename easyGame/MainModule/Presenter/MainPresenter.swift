@@ -6,11 +6,12 @@
 //
 
 import Foundation
-import UIKit
 import CoreData
 
 protocol MainPresenterProtocol: AnyObject {
+    
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
+    
     var gameScreenData: String? {get set}
     var timerServise: TimerServiseProtocol? {get}
     var scoreServise: ScoreServiseProtocol! { get } //
@@ -121,7 +122,8 @@ class MainPresenter: MainPresenterProtocol {
     
     func saveScore(_ score: Int) {
         var currentArrayScore = [ScoreData]()
-        let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let coreDataStack = CoreDataStack()
+        let context = coreDataStack.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
         let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
         let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
@@ -142,4 +144,5 @@ class MainPresenter: MainPresenterProtocol {
             print("save error")
         }
     }
+    
 }

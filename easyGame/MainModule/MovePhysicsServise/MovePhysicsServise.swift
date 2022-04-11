@@ -15,6 +15,7 @@ protocol MovePhysicsServiseProtocol {
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
+    
     var scoreServise: ScoreServiseProtocol? //
     var objects: [Object]
     private var room: (x: Int, y: Int)!
@@ -109,4 +110,5 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
             }
         }
     }
+    
 }

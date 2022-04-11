@@ -17,4 +17,5 @@ class CustomButtonAnimate: UIButton {
             })
         }
     }
+    
 }

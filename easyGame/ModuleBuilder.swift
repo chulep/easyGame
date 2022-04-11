@@ -12,6 +12,7 @@ protocol ModuleBuilderProtocol {
 }
 
 class ModuleBuilder: ModuleBuilderProtocol {
+    
     static func createMainVC() -> UIViewController {
         let objects = PersonageBuilder.create.amount(palm: 3, box: 3)
         let scoreServise = ScoreServise()
@@ -33,4 +34,5 @@ class ModuleBuilder: ModuleBuilderProtocol {
         VC.modalPresentationStyle = .popover
         return VC
     }
+    
 }

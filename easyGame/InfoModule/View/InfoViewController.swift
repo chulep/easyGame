@@ -91,7 +91,8 @@ class InfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let coreDataStack = CoreDataStack()
+        let context = coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
         do {
             try scoreData = context.fetch(fetchRequest)
@@ -99,24 +100,30 @@ class InfoViewController: UIViewController {
             print("load error")
         }
     }
+    
 }
 
 extension InfoViewController: InfoViewProtocol {
+    
     func loadInfo() {
         nameLabel.text = "easyGame"
         corpLabel.text = presenter.info.creater
         locationLabel.text = presenter.info.location
         versionLabel.text = presenter.info.version
     }
+    
 }
 
 extension InfoViewController {
+    
     @objc func tapCloseButton() {
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 extension InfoViewController {
+    
     func createUI() {
         NSLayoutConstraint.activate([
             closeButon.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
@@ -142,9 +149,11 @@ extension InfoViewController {
             versionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
 }
 
 extension InfoViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         scoreData.count
     }
@@ -156,4 +165,5 @@ extension InfoViewController: UITableViewDataSource {
         cell.detailTextLabel?.text = scoreData[indexPath.row].date
         return cell
     }
+    
 }

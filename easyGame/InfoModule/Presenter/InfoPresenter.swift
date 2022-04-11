@@ -8,11 +8,12 @@
 import Foundation
 
 protocol InfoPresenterProtocol: AnyObject {
-    var info: InfoModel {get}
+    var info: InfoModel { get }
 }
 
 class InfoPresenter: InfoPresenterProtocol {
     
+    var scoreData = [ScoreData]()
     var info: InfoModel
     private weak var view: InfoViewProtocol!
     
@@ -20,4 +21,5 @@ class InfoPresenter: InfoPresenterProtocol {
         self.view = view
         self.info = info
     }
+    
 }
