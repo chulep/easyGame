@@ -24,6 +24,9 @@ struct InfoModel {
         } catch {
             print("load error")
         }
+        score.sort { a, b in
+            a.score! > b.score!
+        }
     }
     
 }
