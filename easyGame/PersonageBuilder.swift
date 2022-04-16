@@ -33,4 +33,5 @@ struct PersonageBuilder: PersonageBuilderProtocol {
         }
         return all
     }
+    
 }

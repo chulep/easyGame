@@ -36,6 +36,8 @@ class MainViewController: UIViewController {
             presenter.moveRight(.hero)
         case 4:
             presenter.moveDown(.hero)
+        case 5:
+            present(ModuleBuilder.createInfoVC(), animated: true, completion: nil)
         default:
             break
         }
@@ -46,7 +48,8 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewProtocol {
     func updateGameScreen() {
         gameScreenView.screenLabel.text = presenter.gameScreenData
-        gameScreenView.heatsLabel.text = presenter.heartsGameScreen
+        gameScreenView.heatsLabel.text = presenter.heartsForGameScreen
+        gameScreenView.scoreLabel.text = presenter.scoreFroGameScreen
     }
 }
 
@@ -75,4 +78,5 @@ extension MainViewController {
             gamepadView.heightAnchor.constraint(equalToConstant: sqareSize)
         ])
     }
+    
 }

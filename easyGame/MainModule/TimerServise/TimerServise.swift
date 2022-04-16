@@ -12,6 +12,7 @@ protocol TimerServiseProtocol {
 }
 
 class TimerServise: TimerServiseProtocol {
+    
     private var timer = Timer()
     private var isActiveTimer = false
     weak var presenter: MainPresenterProtocol?
@@ -32,4 +33,5 @@ class TimerServise: TimerServiseProtocol {
     @objc private func timerCallback() {
         presenter?.timerCallback()
     }
+    
 }

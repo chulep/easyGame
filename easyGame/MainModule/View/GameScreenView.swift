@@ -26,6 +26,14 @@ class GameScreenView: UIView {
         return label
     }()
     
+    let scoreLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.numberOfLines = 1
+        label.textAlignment = .right
+        return label
+    }()
+    
     private let brandLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -39,7 +47,7 @@ class GameScreenView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        for view in [screenLabel, heatsLabel, brandLabel] {
+        for view in [screenLabel, heatsLabel, brandLabel, scoreLabel] {
             addSubview(view)
         }
     }
@@ -53,9 +61,14 @@ class GameScreenView: UIView {
         screenLabel.layer.cornerRadius = screenLabel.bounds.width / 14
         //hearts for screen
         heatsLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
-                             y: screenLabel.bounds.height - heatsLabel.bounds.height,
-                             width: screenLabel.bounds.width / 2,
-                             height: screenLabel.bounds.height / 6)
+                                  y: screenLabel.bounds.height - heatsLabel.bounds.height,
+                                  width: screenLabel.bounds.width / 2 - screenLabel.bounds.width / 14,
+                                  height: screenLabel.bounds.height / 6)
+        //score
+        scoreLabel.frame = CGRect(x: screenLabel.bounds.width / 2,
+                                  y: screenLabel.bounds.height - scoreLabel.bounds.height,
+                                  width: screenLabel.bounds.width / 2 - screenLabel.bounds.width / 14,
+                                  height: screenLabel.bounds.height / 6)
         //brand
         brandLabel.frame = CGRect(x: screenLabel.bounds.width / 14,
                                   y: screenLabel.bounds.height,
@@ -67,4 +80,5 @@ class GameScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
