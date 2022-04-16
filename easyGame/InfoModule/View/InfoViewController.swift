@@ -87,8 +87,9 @@ class InfoViewController: UIViewController {
         presenter.info.loadScore()
         loadInfo()
         createUI()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifire)
         tableView.dataSource = self
+        tableView.isUserInteractionEnabled = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -144,8 +145,8 @@ extension InfoViewController {
             scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             tableView.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 10),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: versionLabel.topAnchor, constant: -30),
             
             versionLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90),
@@ -162,11 +163,12 @@ extension InfoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .white
-        cell.selectionStyle = .none
-        cell.textLabel?.text = presenter.info.score[indexPath.row].score
-        cell.detailTextLabel?.text = presenter.info.score[indexPath.row].date
+        let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifire, for: indexPath) as! ScoreTableViewCell
+        cell.scoreLabel.text = presenter.info.score[indexPath.row].score
+        cell.dateLabel.text = presenter.info.score[indexPath.row].date
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColorsHelper.borderCell
+        cell.layer.cornerRadius = cell.bounds.height / 2
         return cell
     }
     
