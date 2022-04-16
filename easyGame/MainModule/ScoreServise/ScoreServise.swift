@@ -43,6 +43,14 @@ class ScoreServise: ScoreServiseProtocol {
         hearts = "♡ "
     }
     
+    func saveDate () -> String {
+        let format = DateFormatter()
+        format.dateFormat = "dd.MM.YY HH:mm"
+            format.timeZone = .current
+        let data = format.string(from: Date.init())
+        return data
+    }
+    
     func saveScore() {
         var currentArrayScore = [ScoreData]()
         let coreDataStack = CoreDataStack()
@@ -50,7 +58,7 @@ class ScoreServise: ScoreServiseProtocol {
         let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
         let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
         let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
-        object.date = "none"
+        object.date = saveDate()
         object.score = "\(score)"
         
         do {

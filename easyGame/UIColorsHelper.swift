@@ -16,6 +16,7 @@ struct UIColorsHelper {
     static let rightButton = UIColor(displayP3Red: 255/255, green: 38/255, blue: 76/255, alpha: 1)
     static let downButton = UIColor(displayP3Red: 255/255, green: 190/255, blue: 0, alpha: 1)
     static let border = CGColor(red: 254/255, green: 254/255, blue: 254/255, alpha: 1)
+    static let borderCell = CGColor(red: 245/255, green: 238/255, blue: 238/255, alpha: 1)
     
     static func createGradientColor(bounds: CGRect) -> UIColor {
         let gradient = CAGradientLayer()
