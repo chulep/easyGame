@@ -49,16 +49,15 @@ class ScoreServise: ScoreServiseProtocol {
         let context = coreDataStack.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
         let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
         let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
         object.date = "none"
         object.score = "\(score)"
         
         do {
             try currentArrayScore = context.fetch(fetchRequest)
-            print("extract")
+            print("export success")
         } catch {
-            print("extract error")
+            print("export error")
         }
         
         for i in currentArrayScore {
@@ -66,25 +65,22 @@ class ScoreServise: ScoreServiseProtocol {
                 do {
                     try context.save()
                     try currentArrayScore = context.fetch(fetchRequest)
-                    print("save")
+                    print("save success")
                 } catch {
                     print("save error")
                 }
             }
-            print("break")
             break
         }
         
-        if currentArrayScore.count >= 6 {
-            print("cerrunt array \(currentArrayScore.count)")
+        if currentArrayScore.count >= 6 {   //тут мешает <fult> из кор даты, поэтому 6
             do {
                 currentArrayScore.sort { s1, s2 in
                     s1.score! > s2.score!
                 }
                 context.delete(currentArrayScore.last!)
                 try context.save()
-                print("delete")
-                print(currentArrayScore)
+                print("delete success")
             } catch {
                 print("delete error")
             }

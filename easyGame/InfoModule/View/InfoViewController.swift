@@ -16,14 +16,6 @@ class InfoViewController: UIViewController {
     
     var presenter: InfoPresenter!
     
-    var tableView: UITableView = {
-        var tableView = UITableView()
-        tableView.isScrollEnabled = false
-        tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
-        return tableView
-    }()
-    
     var nameLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -56,6 +48,22 @@ class InfoViewController: UIViewController {
         return label
     }()
     
+    let scoreLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Top scores:"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = .black
+        return label
+    }()
+    
+    var tableView: UITableView = {
+        var tableView = UITableView()
+        tableView.isScrollEnabled = false
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
     var closeButon: UIButton = {
         var button = UIButton()
         button.backgroundColor = UIColorsHelper.screenAndOtherButton
@@ -63,11 +71,11 @@ class InfoViewController: UIViewController {
         button.clipsToBounds = true
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColorsHelper.border
-        button.addTarget(self, action: #selector(tapCloseButton), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(tapCloseButton), for: .touchUpInside)
         return button
     }()
     
-    lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, tableView]
+    lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, scoreLabel, tableView]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +140,10 @@ extension InfoViewController {
             locationLabel.topAnchor.constraint(equalTo: createrLabel.topAnchor, constant: 30),
             locationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            tableView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 30),
+            scoreLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 30),
+            scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: versionLabel.topAnchor, constant: -30),
@@ -153,6 +164,7 @@ extension InfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .white
+        cell.selectionStyle = .none
         cell.textLabel?.text = presenter.info.score[indexPath.row].score
         cell.detailTextLabel?.text = presenter.info.score[indexPath.row].date
         return cell

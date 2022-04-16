@@ -22,7 +22,7 @@ struct InfoModel {
         do {
             try self.score = context.fetch(fetchRequest)
         } catch {
-            print("load error")
+            print("export error")
         }
         score.sort { a, b in
             a.score! > b.score!
