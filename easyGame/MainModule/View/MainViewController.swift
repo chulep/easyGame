@@ -37,7 +37,7 @@ class MainViewController: UIViewController {
         case 4:
             presenter.moveDown(.hero)
         case 5:
-            present(ModuleBuilder.createInfoVC(), animated: true, completion: nil)
+            present(ModuleBuilder.createInfoVC(currentButtonSize: button.bounds.size), animated: true, completion: nil)
         default:
             break
         }

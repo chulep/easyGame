@@ -26,9 +26,9 @@ class ModuleBuilder: ModuleBuilderProtocol {
         return view
     }
     
-    static func createInfoVC() -> UIViewController {
+    static func createInfoVC(currentButtonSize: CGSize) -> UIViewController {
         let info = InfoModel()
-        let VC = InfoViewController()
+        let VC = InfoViewController(currentButtonSize: currentButtonSize)
         let presenter = InfoPresenter(view: VC, info: info)
         VC.presenter = presenter
         VC.modalPresentationStyle = .popover

@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 protocol InfoViewProtocol: AnyObject {
-    func loadInfo()
+    func closeInfoView()
 }
 
 class InfoViewController: UIViewController {
@@ -71,12 +71,25 @@ class InfoViewController: UIViewController {
         button.clipsToBounds = true
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColorsHelper.border
-        button.addTarget(nil, action: #selector(tapCloseButton), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(closeInfoView), for: .touchUpInside)
         return button
     }()
     
     lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, scoreLabel, tableView]
+    
+    private var closeButtonSize = CGSize()
+    
+    init(currentButtonSize: CGSize) {
+        super.init(nibName: nil, bundle: nil)
+        self.closeButtonSize = currentButtonSize
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
+
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColorsHelper.background
@@ -104,6 +117,7 @@ class InfoViewController: UIViewController {
     
 }
 
+//MARK: - Protocol method
 extension InfoViewController: InfoViewProtocol {
     
     func loadInfo() {
@@ -113,24 +127,21 @@ extension InfoViewController: InfoViewProtocol {
         versionLabel.text = presenter.info.version
     }
     
-}
-
-extension InfoViewController {
-    
-    @objc func tapCloseButton() {
+    @objc func closeInfoView() {
         dismiss(animated: true, completion: nil)
     }
     
 }
 
+//MARK: - UI
 extension InfoViewController {
     
     func createUI() {
         NSLayoutConstraint.activate([
             closeButon.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             closeButon.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            closeButon.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/10),
-            closeButon.heightAnchor.constraint(equalTo: closeButon.widthAnchor),
+            closeButon.widthAnchor.constraint(equalToConstant: CGFloat(closeButtonSize.width)),
+            closeButon.heightAnchor.constraint(equalToConstant: CGFloat(closeButtonSize.height)),
             
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -156,6 +167,7 @@ extension InfoViewController {
     
 }
 
+//MARK: - TableView DataSourse
 extension InfoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

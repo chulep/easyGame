@@ -16,7 +16,6 @@ protocol MainPresenterProtocol: AnyObject {
     var timerServise: TimerServiseProtocol? { get }
     var scoreServise: ScoreServiseProtocol! { get } //
     func createDataFromGameScreen()
-    func timerCallback()
     func startButtonTap()
     func moveUp(_ personage: Object.Name)
     func moveLeft(_ personage: Object.Name)
@@ -103,21 +102,6 @@ class MainPresenter: MainPresenterProtocol {
         startBool = !startBool
         createDataFromGameScreen()
         timerServise?.startStopTimer()
-    }
-    
-    func timerCallback() {
-        switch Int.random(in: 1...4) {
-        case 1:
-            moveUp(.antiHero)
-        case 2:
-            moveLeft(.antiHero)
-        case 3:
-            moveRight(.antiHero)
-        case 4:
-            moveDown(.antiHero)
-        default:
-            break
-        }
     }
     
 }
