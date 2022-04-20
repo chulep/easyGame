@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
         presenter.createDataFromGameScreen()
     }
     
-    //MARK: - Tap Btton Func
+    //MARK: - Func button tup
     @objc func tapButton(_ button: UIButton) {
         switch button.tag {
         case 0:
@@ -49,11 +49,11 @@ extension MainViewController: MainViewProtocol {
     func updateGameScreen() {
         gameScreenView.screenLabel.text = presenter.gameScreenData
         gameScreenView.heatsLabel.text = presenter.heartsForGameScreen
-        gameScreenView.scoreLabel.text = presenter.scoreFroGameScreen
+        gameScreenView.scoreLabel.text = presenter.scoreFomGameScreen
     }
 }
 
-//MARK: - Create UI
+//MARK: - UI
 extension MainViewController {
     private func createUI() {
         view.backgroundColor = UIColorsHelper.background

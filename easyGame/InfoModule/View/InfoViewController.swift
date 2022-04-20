@@ -10,10 +10,12 @@ import CoreData
 
 protocol InfoViewProtocol: AnyObject {
     func closeInfoView()
+    func showInfo(info: InfoModel)
 }
 
 class InfoViewController: UIViewController {
     
+    private var info: InfoModel!
     var presenter: InfoPresenter!
     
     var nameLabel: UILabel = {
@@ -97,8 +99,6 @@ class InfoViewController: UIViewController {
             element.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(element)
         }
-        presenter.info.loadScore()
-        loadInfo()
         createUI()
         tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifire)
         tableView.dataSource = self
@@ -112,19 +112,16 @@ class InfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.info.loadScore()
+        presenter.loadData()
     }
     
 }
 
 //MARK: - Protocol method
 extension InfoViewController: InfoViewProtocol {
-    
-    func loadInfo() {
-        nameLabel.text = "easyGame"
-        createrLabel.text = presenter.info.creater
-        locationLabel.text = presenter.info.location
-        versionLabel.text = presenter.info.version
+    func showInfo(info: InfoModel) {
+        self.info = info
+        tableView.reloadData()
     }
     
     @objc func closeInfoView() {
@@ -171,13 +168,13 @@ extension InfoViewController {
 extension InfoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.info.score.count
+        info.score.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifire, for: indexPath) as! ScoreTableViewCell
-        cell.scoreLabel.text = presenter.info.score[indexPath.row].score
-        cell.dateLabel.text = presenter.info.score[indexPath.row].date
+        cell.scoreLabel.text = info.score[indexPath.row].score
+        cell.dateLabel.text = info.score[indexPath.row].date
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColorsHelper.borderCell
         cell.layer.cornerRadius = cell.bounds.height / 2

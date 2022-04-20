@@ -59,6 +59,7 @@ class GamepadView: UIView {
     
     private lazy var allButtons = [startButton, upButton, leftButton, rightButton, downButton, infoButton]
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .none
@@ -73,13 +74,14 @@ class GamepadView: UIView {
         }
     }
     
+    //MARK: - UI
     override func layoutSubviews() {
         super.layoutSubviews()
         
         for button in allButtons {
             button.layer.cornerRadius = button.bounds.height / 2
         }
-        //MARK: - Constraints
+
         NSLayoutConstraint.activate([
             startButton.topAnchor.constraint(equalTo: topAnchor),
             startButton.rightAnchor.constraint(equalTo: rightAnchor),

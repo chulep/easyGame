@@ -45,6 +45,7 @@ class GameScreenView: UIView {
         return label
     }()
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         for view in [screenLabel, heatsLabel, brandLabel, scoreLabel] {
@@ -52,6 +53,7 @@ class GameScreenView: UIView {
         }
     }
     
+    //MARK: - UI
     override func layoutSubviews() {
         super.layoutSubviews()
         //screen

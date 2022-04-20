@@ -9,6 +9,7 @@ import UIKit
 
 protocol ModuleBuilderProtocol {
     static func createMainVC() -> UIViewController
+    static func createInfoVC(currentButtonSize: CGSize) -> UIViewController
 }
 
 class ModuleBuilder: ModuleBuilderProtocol {
@@ -27,12 +28,12 @@ class ModuleBuilder: ModuleBuilderProtocol {
     }
     
     static func createInfoVC(currentButtonSize: CGSize) -> UIViewController {
-        let info = InfoModel()
-        let VC = InfoViewController(currentButtonSize: currentButtonSize)
-        let presenter = InfoPresenter(view: VC, info: info)
-        VC.presenter = presenter
-        VC.modalPresentationStyle = .popover
-        return VC
+        let view = InfoViewController(currentButtonSize: currentButtonSize)
+        let data = InfoModel()
+        let presenter = InfoPresenter(view: view, infoData: data)
+        view.presenter = presenter
+        view.modalPresentationStyle = .popover
+        return view
     }
     
 }

@@ -14,7 +14,7 @@ protocol PersonageBuilderProtocol {
 struct PersonageBuilder: PersonageBuilderProtocol {
     
     static let create = PersonageBuilder()
-    let room = (x: 16, y: 12)
+    let room = (x: 16, y: 12) //size screen hardcode
     
     func amount(palm: Int, box: Int) -> [Object] {
         let hero = Object(name: .hero, room: room, x: Int.random(in: 1...room.x), y: Int.random(in: 1...room.y))

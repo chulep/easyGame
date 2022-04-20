@@ -52,7 +52,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
             return .up
         }
     }
-    
+
     //MARK: - move physics method
     func universalMove(personage: Object.Name, direction: Object.Direction) {
         let reverseMove = reverseMove(direction: direction)
