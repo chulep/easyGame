@@ -8,16 +8,17 @@
 import Foundation
 
 protocol TimerServiseProtocol {
+    init(presenter: MainPresenterProtocol)
     func startStopTimer()
 }
 
 class TimerServise: TimerServiseProtocol {
     
+    weak var presenter: MainPresenterProtocol!
     private var timer = Timer()
     private var isActiveTimer = false
-    weak var presenter: MainPresenterProtocol!
     
-    init(presenter: MainPresenterProtocol) {
+    required init(presenter: MainPresenterProtocol) {
         self.presenter = presenter
     }
     
@@ -30,6 +31,7 @@ class TimerServise: TimerServiseProtocol {
         isActiveTimer = !isActiveTimer
     }
     
+    //MARK: - Move antiHero
     @objc private func moveAntiHero() {
         switch Int.random(in: 1...4) {
         case 1:

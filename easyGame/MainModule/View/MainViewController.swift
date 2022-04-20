@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     private var gameScreenView = GameScreenView()
     private var gamepadView = GamepadView()
     
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
@@ -44,7 +45,7 @@ class MainViewController: UIViewController {
     }
 }
 
-//MARK: - ViewProtocol
+//MARK: - Protocol method
 extension MainViewController: MainViewProtocol {
     func updateGameScreen() {
         gameScreenView.screenLabel.text = presenter.gameScreenData

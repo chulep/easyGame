@@ -15,8 +15,9 @@ protocol InfoViewProtocol: AnyObject {
 
 class InfoViewController: UIViewController {
     
-    private var info: InfoModel!
     var presenter: InfoPresenter!
+    private var info: InfoModel!
+    private var closeButtonSize = CGSize()
     
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -63,6 +64,7 @@ class InfoViewController: UIViewController {
         tableView.isScrollEnabled = false
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.isUserInteractionEnabled = false
         return tableView
     }()
     
@@ -79,30 +81,26 @@ class InfoViewController: UIViewController {
     
     lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, scoreLabel, tableView]
     
-    private var closeButtonSize = CGSize()
-    
+    //MARK: - Init
     init(currentButtonSize: CGSize) {
         super.init(nibName: nil, bundle: nil)
         self.closeButtonSize = currentButtonSize
+        tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifire)
+        tableView.dataSource = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColorsHelper.background
         for element in allElement {
             element.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(element)
         }
         createUI()
-        tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifire)
-        tableView.dataSource = self
-        tableView.isUserInteractionEnabled = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -134,6 +132,8 @@ extension InfoViewController: InfoViewProtocol {
 extension InfoViewController {
     
     func createUI() {
+        view.backgroundColor = UIColorsHelper.background
+        
         NSLayoutConstraint.activate([
             closeButon.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             closeButon.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),

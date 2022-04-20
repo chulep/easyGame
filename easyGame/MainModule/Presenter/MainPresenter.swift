@@ -13,7 +13,6 @@ protocol MainPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
     
     var timerServise: TimerServiseProtocol! { get }
-    var scoreServise: ScoreServiseProtocol! { get }
     var gameScreenData: String? { get set }
     func createDataFromGameScreen()
     func startButtonTap()
@@ -60,7 +59,7 @@ class MainPresenter: MainPresenterProtocol {
             timerServise?.startStopTimer()
             gameScreenData = "Game Over"
             heartsForGameScreen = ""
-            gameScreenDataServise.refresh()
+            gameScreenDataServise.refreshObjects()
             view?.updateGameScreen()
             scoreServise.saveScore()
             scoreServise.reset()

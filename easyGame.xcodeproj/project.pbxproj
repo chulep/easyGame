@@ -178,6 +178,7 @@
 				6D826A3A28041E590084854D /* CoreDataStack.swift */,
 				6D87B08B27A98D11000B11A4 /* ModuleBuilder.swift */,
 				6DD872D627C2767E0043DF98 /* UIColorsHelper.swift */,
+				6D01CCD127D7DA3400C57550 /* CustomButtonAnimate.swift */,
 				6D87B08827A982B3000B11A4 /* MainModule */,
 				6D01CCD327D7E0E200C57550 /* InfoModule */,
 				6DDDC7BF27A3CC50004634F3 /* Assets.xcassets */,
@@ -212,7 +213,6 @@
 				6DDDC7B727A3CC4F004634F3 /* MainViewController.swift */,
 				6D6FD6D327BCF5E6007EF161 /* GameScreenView.swift */,
 				6D709EE527AD24B400B01D34 /* GamepadView.swift */,
-				6D01CCD127D7DA3400C57550 /* CustomButtonAnimate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

@@ -9,15 +9,14 @@ import Foundation
 
 protocol MovePhysicsServiseProtocol {
     init(obects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol)
-    var objects: [Object] {get set}
-    var scoreServise: ScoreServiseProtocol? { get } //
+    var scoreServise: ScoreServiseProtocol! { get }
     func universalMove(personage: Object.Name, direction: Object.Direction)
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
     
-    var scoreServise: ScoreServiseProtocol? //
-    var objects: [Object]
+    var scoreServise: ScoreServiseProtocol!
+    private var objects: [Object]
     private var room: (x: Int, y: Int)!
     private var hero: Object!
     private var antiHero: Object!
@@ -52,7 +51,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
             return .up
         }
     }
-
+    
     //MARK: - move physics method
     func universalMove(personage: Object.Name, direction: Object.Direction) {
         let reverseMove = reverseMove(direction: direction)
