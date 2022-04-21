@@ -56,7 +56,7 @@ class MainPresenter: MainPresenterProtocol {
         }
         if scoreServise?.hearts == "" {
             startBool = !startBool
-            timerServise?.startStopTimer()
+            timerServise?.stopTimer()
             gameScreenData = "Game Over"
             heartsForGameScreen = ""
             gameScreenDataServise.refreshObjects()
@@ -99,7 +99,7 @@ class MainPresenter: MainPresenterProtocol {
     func startButtonTap() {
         startBool = !startBool
         createDataFromGameScreen()
-        timerServise?.startStopTimer()
+        timerServise?.startTimer()
     }
     
 }

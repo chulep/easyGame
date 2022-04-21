@@ -18,66 +18,13 @@ class InfoViewController: UIViewController {
     var presenter: InfoPresenter!
     private var info: InfoModel!
     private var closeButtonSize = CGSize()
-    
-    var nameLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.text = "easyGame"
-        label.font = UIFont.boldSystemFont(ofSize: 30)
-        return label
-    }()
-    
-    var createrLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    var locationLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    var versionLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    let scoreLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Top scores:"
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    var tableView: UITableView = {
-        var tableView = UITableView()
-        tableView.isScrollEnabled = false
-        tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
-        tableView.isUserInteractionEnabled = false
-        return tableView
-    }()
-    
-    var closeButon: UIButton = {
-        var button = UIButton()
-        button.backgroundColor = UIColorsHelper.screenAndOtherButton
-        button.setTitle("✕", for: .normal)
-        button.clipsToBounds = true
-        button.layer.borderWidth = 3
-        button.layer.borderColor = UIColorsHelper.border
-        button.addTarget(nil, action: #selector(closeInfoView), for: .touchUpInside)
-        return button
-    }()
+    var closeButon = InfoUIBuilder.createButton()
+    var nameLabel = InfoUIBuilder.createLabel(textSize: 30)
+    var createrLabel = InfoUIBuilder.createLabel(textSize: 17)
+    var locationLabel = InfoUIBuilder.createLabel(textSize: 17)
+    let scoreLabel = InfoUIBuilder.createLabel(textSize: 17)
+    var tableView = InfoUIBuilder.createTableView()
+    var versionLabel = InfoUIBuilder.createLabel(textSize: 17)
     
     lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, scoreLabel, tableView]
     
@@ -119,6 +66,11 @@ class InfoViewController: UIViewController {
 extension InfoViewController: InfoViewProtocol {
     func showInfo(info: InfoModel) {
         self.info = info
+        nameLabel.text = info.name
+        createrLabel.text = info.creater
+        locationLabel.text = info.location
+        scoreLabel.text = info.scoreLabel
+        versionLabel.text = info.version
         tableView.reloadData()
     }
     

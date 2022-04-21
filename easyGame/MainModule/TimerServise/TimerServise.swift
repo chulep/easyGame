@@ -9,7 +9,8 @@ import Foundation
 
 protocol TimerServiseProtocol {
     init(presenter: MainPresenterProtocol)
-    func startStopTimer()
+    func startTimer()
+    func stopTimer()
 }
 
 class TimerServise: TimerServiseProtocol {
@@ -22,13 +23,16 @@ class TimerServise: TimerServiseProtocol {
         self.presenter = presenter
     }
     
-    func startStopTimer() {
+    func startTimer() {
         if isActiveTimer == false {
+            isActiveTimer = true
             timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(moveAntiHero), userInfo: nil, repeats: true)
-        } else {
-            timer.invalidate()
         }
-        isActiveTimer = !isActiveTimer
+    }
+    
+    func stopTimer() {
+        isActiveTimer = false
+        timer.invalidate()
     }
     
     //MARK: - Move antiHero

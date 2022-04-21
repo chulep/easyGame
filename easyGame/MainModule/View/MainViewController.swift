@@ -48,9 +48,11 @@ class MainViewController: UIViewController {
 //MARK: - Protocol method
 extension MainViewController: MainViewProtocol {
     func updateGameScreen() {
-        gameScreenView.screenLabel.text = presenter.gameScreenData
-        gameScreenView.heatsLabel.text = presenter.heartsForGameScreen
-        gameScreenView.scoreLabel.text = presenter.scoreFomGameScreen
+        DispatchQueue.main.async {
+            self.gameScreenView.screenLabel.text = self.presenter.gameScreenData
+            self.gameScreenView.heatsLabel.text = self.presenter.heartsForGameScreen
+            self.gameScreenView.scoreLabel.text = self.presenter.scoreFomGameScreen
+        }
     }
 }
 

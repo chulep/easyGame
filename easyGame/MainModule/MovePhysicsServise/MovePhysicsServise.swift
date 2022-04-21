@@ -28,6 +28,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
         searchHeroes()
     }
     
+    //MARK: - Support method
     private func searchHeroes() {
         for i in objects {
             if i.name == .hero {
