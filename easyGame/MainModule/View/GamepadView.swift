@@ -9,56 +9,16 @@ import UIKit
 
 class GamepadView: UIView {
     
-    private let startButton: UIButton = {
-        var button = CustomButtonAnimate()
-        button.setTitle("START", for: .normal)
-        button.backgroundColor = UIColorsHelper.screenAndOtherButton
-        button.tag = 0
-        return button
-    }()
-    
-    private let upButton: UIButton = {
-        let button = CustomButtonAnimate()
-        button.setTitle("U", for: .normal)
-        button.backgroundColor = UIColorsHelper.upButton
-        button.tag = 1
-        return button
-    }()
-    
-    private let leftButton: UIButton = {
-        let button = CustomButtonAnimate()
-        button.setTitle("L", for: .normal)
-        button.backgroundColor = UIColorsHelper.leftButton
-        button.tag = 2
-        return button
-    }()
-    
-    private let rightButton: UIButton = {
-        let button = CustomButtonAnimate()
-        button.setTitle("R", for: .normal)
-        button.backgroundColor = UIColorsHelper.rightButton
-        button.tag = 3
-        return button
-    }()
-    
-    private let downButton: UIButton = {
-        let button = CustomButtonAnimate()
-        button.setTitle("D", for: .normal)
-        button.backgroundColor = UIColorsHelper.downButton
-        button.tag = 4
-        return button
-    }()
-    
-    private let infoButton: UIButton = {
-        let button = CustomButtonAnimate()
-        button.setTitle("?", for: .normal)
-        button.backgroundColor = UIColorsHelper.screenAndOtherButton
-        button.tag = 5
-        return button
-    }()
+    private let startButton = MainUIBuilder.createButton(title: "START", tag: 0, color: UIColorsHelper.screenAndOtherButton)
+    private let upButton = MainUIBuilder.createButton(title: "U", tag: 1, color: UIColorsHelper.upButton)
+    private let leftButton = MainUIBuilder.createButton(title: "L", tag: 2, color: UIColorsHelper.leftButton)
+    private let rightButton = MainUIBuilder.createButton(title: "R", tag: 3, color: UIColorsHelper.rightButton)
+    private let downButton = MainUIBuilder.createButton(title: "D", tag: 4, color: UIColorsHelper.downButton)
+    private let infoButton = MainUIBuilder.createButton(title: "?", tag: 5, color: UIColorsHelper.screenAndOtherButton)
     
     private lazy var allButtons = [startButton, upButton, leftButton, rightButton, downButton, infoButton]
     
+    //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .none
@@ -73,13 +33,14 @@ class GamepadView: UIView {
         }
     }
     
+    //MARK: - UI
     override func layoutSubviews() {
         super.layoutSubviews()
         
         for button in allButtons {
             button.layer.cornerRadius = button.bounds.height / 2
         }
-        //MARK: - Constraints
+
         NSLayoutConstraint.activate([
             startButton.topAnchor.constraint(equalTo: topAnchor),
             startButton.rightAnchor.constraint(equalTo: rightAnchor),

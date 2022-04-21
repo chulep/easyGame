@@ -10,9 +10,11 @@ import CoreData
 
 struct InfoModel {
     
-    var version = "0.1"
-    var creater = "Chulep Technologies"
-    var location = "Russia, Saint-Petersburg"
+    let name = "easyGame"
+    let creater = "Chulep Technologies"
+    let location = "Russia, Saint-Petersburg"
+    let scoreLabel = "Top scores:"
+    let version = "0.1"
     var score = [ScoreData]()
     
     mutating func loadScore() {

@@ -33,6 +33,7 @@ class ScoreTableViewCell: UITableViewCell {
         }
     }
     
+    //MARK: - UI
     override func layoutSubviews() {
         super.layoutSubviews()
         NSLayoutConstraint.activate([

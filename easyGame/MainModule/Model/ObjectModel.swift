@@ -57,6 +57,7 @@ class Object {
         }
     }
     
+    //init for other objects
     init(name: Name, index: Int, room: (x: Int, y: Int), x: Int, y: Int) {
         self.name = name
         self.x = x
@@ -65,6 +66,7 @@ class Object {
         self.room = room
     }
     
+    //init for hero/antiHero
     convenience init(name: Name, room: (x: Int, y: Int), x: Int, y: Int) {
         self.init(name: name, index: 0, room: room, x: x, y: y)
     }

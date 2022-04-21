@@ -17,13 +17,14 @@ class MainViewController: UIViewController {
     private var gameScreenView = GameScreenView()
     private var gamepadView = GamepadView()
     
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
         presenter.createDataFromGameScreen()
     }
     
-    //MARK: - Tap Btton Func
+    //MARK: - Func button tup
     @objc func tapButton(_ button: UIButton) {
         switch button.tag {
         case 0:
@@ -37,23 +38,25 @@ class MainViewController: UIViewController {
         case 4:
             presenter.moveDown(.hero)
         case 5:
-            present(ModuleBuilder.createInfoVC(), animated: true, completion: nil)
+            present(ModuleBuilder.createInfoVC(currentButtonSize: button.bounds.size), animated: true, completion: nil)
         default:
             break
         }
     }
 }
 
-//MARK: - ViewProtocol
+//MARK: - Protocol method
 extension MainViewController: MainViewProtocol {
     func updateGameScreen() {
-        gameScreenView.screenLabel.text = presenter.gameScreenData
-        gameScreenView.heatsLabel.text = presenter.heartsForGameScreen
-        gameScreenView.scoreLabel.text = presenter.scoreFroGameScreen
+        DispatchQueue.main.async {
+            self.gameScreenView.screenLabel.text = self.presenter.gameScreenData
+            self.gameScreenView.heatsLabel.text = self.presenter.heartsForGameScreen
+            self.gameScreenView.scoreLabel.text = self.presenter.scoreFomGameScreen
+        }
     }
 }
 
-//MARK: - Create UI
+//MARK: - UI
 extension MainViewController {
     private func createUI() {
         view.backgroundColor = UIColorsHelper.background

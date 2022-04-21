@@ -43,7 +43,7 @@ class ScoreServise: ScoreServiseProtocol {
         hearts = "♡ "
     }
     
-    func saveDate () -> String {
+    private func currentDate() -> String {
         let format = DateFormatter()
         format.dateFormat = "dd.MM.YY HH:mm"
             format.timeZone = .current
@@ -51,6 +51,7 @@ class ScoreServise: ScoreServiseProtocol {
         return data
     }
     
+    //MARK: - Save SCoreData
     func saveScore() {
         var currentArrayScore = [ScoreData]()
         let coreDataStack = CoreDataStack()
@@ -58,9 +59,10 @@ class ScoreServise: ScoreServiseProtocol {
         let entity = NSEntityDescription.entity(forEntityName: "ScoreData", in: context)
         let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
         let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
-        object.date = saveDate()
+        object.date = currentDate()
         object.score = "\(score)"
         
+        //export
         do {
             try currentArrayScore = context.fetch(fetchRequest)
             print("export success")
@@ -68,6 +70,7 @@ class ScoreServise: ScoreServiseProtocol {
             print("export error")
         }
         
+        //save
         for i in currentArrayScore {
             if i.score! <= "\(score)" {
                 do {
@@ -81,6 +84,7 @@ class ScoreServise: ScoreServiseProtocol {
             break
         }
         
+        //delete excess
         if currentArrayScore.count >= 6 {   //тут мешает <fult> из кор даты, поэтому 6
             do {
                 currentArrayScore.sort { s1, s2 in

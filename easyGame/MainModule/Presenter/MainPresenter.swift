@@ -12,11 +12,9 @@ protocol MainPresenterProtocol: AnyObject {
     
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
     
+    var timerServise: TimerServiseProtocol! { get }
     var gameScreenData: String? { get set }
-    var timerServise: TimerServiseProtocol? { get }
-    var scoreServise: ScoreServiseProtocol! { get } //
     func createDataFromGameScreen()
-    func timerCallback()
     func startButtonTap()
     func moveUp(_ personage: Object.Name)
     func moveLeft(_ personage: Object.Name)
@@ -24,18 +22,15 @@ protocol MainPresenterProtocol: AnyObject {
     func moveDown(_ personage: Object.Name)
 }
 
-//MARK: - Presenter class
 class MainPresenter: MainPresenterProtocol {
     
-    var dataTask = [ScoreData]()
-    
+    weak var view: MainViewProtocol!
+    var timerServise: TimerServiseProtocol!
     var scoreServise: ScoreServiseProtocol!
-    private var startBool = false
-    var heartsForGameScreen = String()
-    var scoreFroGameScreen = String()
-    var timerServise: TimerServiseProtocol?
-    weak var view: MainViewProtocol?
     var gameScreenData: String?
+    var heartsForGameScreen = String()
+    var scoreFomGameScreen = String()
+    private var startBool = false
     private var movePhysicsServise: MovePhysicsServiseProtocol
     private var gameScreenDataServise: GameScreenDataServiseProtocol
     
@@ -46,31 +41,32 @@ class MainPresenter: MainPresenterProtocol {
         self.scoreServise = scoreServise
     }
     
+    //MARK: - Data from gamescreen
     func createDataFromGameScreen() {
         if startBool == false {
             gameScreenData = "Press START"
             heartsForGameScreen = ""
-            scoreFroGameScreen = ""
+            scoreFomGameScreen = ""
             view?.updateGameScreen()
         } else {
             gameScreenData = gameScreenDataServise.createData()
             heartsForGameScreen = "heart: \(scoreServise.hearts)"
-            scoreFroGameScreen = "score: \(scoreServise.score)"
+            scoreFomGameScreen = "score: \(scoreServise.score)"
             view?.updateGameScreen()
         }
         if scoreServise?.hearts == "" {
             startBool = !startBool
-            timerServise?.startStopTimer()
+            timerServise?.stopTimer()
             gameScreenData = "Game Over"
             heartsForGameScreen = ""
-            gameScreenDataServise.refresh()
+            gameScreenDataServise.refreshObjects()
             view?.updateGameScreen()
             scoreServise.saveScore()
             scoreServise.reset()
         }
     }
     
-    //MARK: - Movement
+    //MARK: - Movement personage
     func moveUp(_ personage: Object.Name) {
         if startBool == true {
             movePhysicsServise.universalMove(personage: personage, direction: .up)
@@ -99,25 +95,11 @@ class MainPresenter: MainPresenterProtocol {
         }
     }
     
+    //MARK: - Start buton 
     func startButtonTap() {
         startBool = !startBool
         createDataFromGameScreen()
-        timerServise?.startStopTimer()
-    }
-    
-    func timerCallback() {
-        switch Int.random(in: 1...4) {
-        case 1:
-            moveUp(.antiHero)
-        case 2:
-            moveLeft(.antiHero)
-        case 3:
-            moveRight(.antiHero)
-        case 4:
-            moveDown(.antiHero)
-        default:
-            break
-        }
+        timerServise?.startTimer()
     }
     
 }

@@ -9,87 +9,45 @@ import UIKit
 import CoreData
 
 protocol InfoViewProtocol: AnyObject {
-    func loadInfo()
+    func closeInfoView()
+    func showInfo(info: InfoModel)
 }
 
 class InfoViewController: UIViewController {
     
     var presenter: InfoPresenter!
-    
-    var nameLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.text = "easyGame"
-        label.font = UIFont.boldSystemFont(ofSize: 30)
-        return label
-    }()
-    
-    var createrLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    var locationLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    var versionLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    let scoreLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Top scores:"
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = .black
-        return label
-    }()
-    
-    var tableView: UITableView = {
-        var tableView = UITableView()
-        tableView.isScrollEnabled = false
-        tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
-        return tableView
-    }()
-    
-    var closeButon: UIButton = {
-        var button = UIButton()
-        button.backgroundColor = UIColorsHelper.screenAndOtherButton
-        button.setTitle("✕", for: .normal)
-        button.clipsToBounds = true
-        button.layer.borderWidth = 3
-        button.layer.borderColor = UIColorsHelper.border
-        button.addTarget(nil, action: #selector(tapCloseButton), for: .touchUpInside)
-        return button
-    }()
+    private var info: InfoModel!
+    private var closeButtonSize = CGSize()
+    var closeButon = InfoUIBuilder.createButton()
+    var nameLabel = InfoUIBuilder.createLabel(textSize: 30)
+    var createrLabel = InfoUIBuilder.createLabel(textSize: 17)
+    var locationLabel = InfoUIBuilder.createLabel(textSize: 17)
+    let scoreLabel = InfoUIBuilder.createLabel(textSize: 17)
+    var tableView = InfoUIBuilder.createTableView()
+    var versionLabel = InfoUIBuilder.createLabel(textSize: 17)
     
     lazy private var allElement = [nameLabel, versionLabel, createrLabel, locationLabel, closeButon, scoreLabel, tableView]
+    
+    //MARK: - Init
+    init(currentButtonSize: CGSize) {
+        super.init(nibName: nil, bundle: nil)
+        self.closeButtonSize = currentButtonSize
+        tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifire)
+        tableView.dataSource = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColorsHelper.background
         for element in allElement {
             element.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(element)
         }
-        presenter.info.loadScore()
-        loadInfo()
         createUI()
-        tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifire)
-        tableView.dataSource = self
-        tableView.isUserInteractionEnabled = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,38 +57,40 @@ class InfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.info.loadScore()
+        presenter.loadData()
     }
     
 }
 
+//MARK: - Protocol method
 extension InfoViewController: InfoViewProtocol {
-    
-    func loadInfo() {
-        nameLabel.text = "easyGame"
-        createrLabel.text = presenter.info.creater
-        locationLabel.text = presenter.info.location
-        versionLabel.text = presenter.info.version
+    func showInfo(info: InfoModel) {
+        self.info = info
+        nameLabel.text = info.name
+        createrLabel.text = info.creater
+        locationLabel.text = info.location
+        scoreLabel.text = info.scoreLabel
+        versionLabel.text = info.version
+        tableView.reloadData()
     }
     
-}
-
-extension InfoViewController {
-    
-    @objc func tapCloseButton() {
+    @objc func closeInfoView() {
         dismiss(animated: true, completion: nil)
     }
     
 }
 
+//MARK: - UI
 extension InfoViewController {
     
     func createUI() {
+        view.backgroundColor = UIColorsHelper.background
+        
         NSLayoutConstraint.activate([
             closeButon.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             closeButon.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            closeButon.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/10),
-            closeButon.heightAnchor.constraint(equalTo: closeButon.widthAnchor),
+            closeButon.widthAnchor.constraint(equalToConstant: CGFloat(closeButtonSize.width)),
+            closeButon.heightAnchor.constraint(equalToConstant: CGFloat(closeButtonSize.height)),
             
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -156,16 +116,17 @@ extension InfoViewController {
     
 }
 
+//MARK: - TableView DataSourse
 extension InfoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.info.score.count
+        info.score.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifire, for: indexPath) as! ScoreTableViewCell
-        cell.scoreLabel.text = presenter.info.score[indexPath.row].score
-        cell.dateLabel.text = presenter.info.score[indexPath.row].date
+        cell.scoreLabel.text = info.score[indexPath.row].score
+        cell.dateLabel.text = info.score[indexPath.row].date
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColorsHelper.borderCell
         cell.layer.cornerRadius = cell.bounds.height / 2

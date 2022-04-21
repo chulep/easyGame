@@ -8,7 +8,8 @@
 import Foundation
 
 protocol InfoPresenterProtocol: AnyObject {
-    var info: InfoModel { get }
+    init(view: InfoViewProtocol, infoData: InfoModel)
+    func loadData()
 }
 
 class InfoPresenter: InfoPresenterProtocol {
@@ -16,9 +17,14 @@ class InfoPresenter: InfoPresenterProtocol {
     var info: InfoModel
     private weak var view: InfoViewProtocol!
     
-    init(view: InfoViewProtocol, info: InfoModel) {
+    required init(view: InfoViewProtocol, infoData: InfoModel) {
         self.view = view
-        self.info = info
+        self.info = infoData
+    }
+    
+    func loadData() {
+        info.loadScore()
+        view.showInfo(info: info)
     }
     
 }
