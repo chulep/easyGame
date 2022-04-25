@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-        presenter.createDataFromGameScreen()
+        gameScreenView.screenLabel.text = "PRESS START"
     }
     
     //MARK: - Func button tup
