@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import AudioToolbox
 
 protocol ScoreServiseProtocol {
     var score: Int { get set }
@@ -32,6 +33,7 @@ class ScoreServise: ScoreServiseProtocol {
     func dropHeart() {
         let dropHeart = hearts.dropLast(2)
         hearts = String(dropHeart)
+        AudioServicesPlaySystemSound(SystemSoundID(4095))
     }
     
     func addHeart() {
