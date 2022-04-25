@@ -60,7 +60,7 @@ class ScoreServise: ScoreServiseProtocol {
         let fetchRequest: NSFetchRequest<ScoreData> = ScoreData.fetchRequest()
         let object = NSManagedObject(entity: entity!, insertInto: context) as! ScoreData
         object.date = currentDate()
-        object.score = "\(score)"
+        object.score = Int32(score)
         
         //export
         do {
@@ -72,7 +72,7 @@ class ScoreServise: ScoreServiseProtocol {
         
         //save
         for i in currentArrayScore {
-            if i.score! <= "\(score)" {
+            if i.score <= score {
                 do {
                     try context.save()
                     try currentArrayScore = context.fetch(fetchRequest)
@@ -88,7 +88,7 @@ class ScoreServise: ScoreServiseProtocol {
         if currentArrayScore.count >= 6 {   //тут мешает <fult> из кор даты, поэтому 6
             do {
                 currentArrayScore.sort { s1, s2 in
-                    s1.score! > s2.score!
+                    s1.score > s2.score
                 }
                 context.delete(currentArrayScore.last!)
                 try context.save()

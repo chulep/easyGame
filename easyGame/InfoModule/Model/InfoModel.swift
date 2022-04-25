@@ -27,7 +27,7 @@ struct InfoModel {
             print("export info error")
         }
         score.sort { a, b in
-            a.score! > b.score!
+            a.score > b.score
         }
     }
     

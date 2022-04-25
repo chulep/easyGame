@@ -125,7 +125,7 @@ extension InfoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifire, for: indexPath) as! ScoreTableViewCell
-        cell.scoreLabel.text = info.score[indexPath.row].score
+        cell.scoreLabel.text = "\(info.score[indexPath.row].score)"
         cell.dateLabel.text = info.score[indexPath.row].date
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColorsHelper.borderCell
