@@ -44,7 +44,7 @@ class MainPresenter: MainPresenterProtocol {
     //MARK: - Data from gamescreen
     func createDataFromGameScreen() {
         if startBool == false {
-            gameScreenData = "Press START"
+            gameScreenData = "PAUSE"
             heartsForGameScreen = ""
             scoreFomGameScreen = ""
             view?.updateGameScreen()
@@ -57,7 +57,7 @@ class MainPresenter: MainPresenterProtocol {
         if scoreServise?.hearts == "" {
             startBool = !startBool
             timerServise?.stopTimer()
-            gameScreenData = "Game Over"
+            gameScreenData = "GAME OVER\n \npress START to a new game"
             heartsForGameScreen = ""
             gameScreenDataServise.refreshObjects()
             scoreServise.saveScore()
