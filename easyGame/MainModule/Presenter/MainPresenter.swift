@@ -60,9 +60,9 @@ class MainPresenter: MainPresenterProtocol {
             gameScreenData = "Game Over"
             heartsForGameScreen = ""
             gameScreenDataServise.refreshObjects()
-            view?.updateGameScreen()
             scoreServise.saveScore()
             scoreServise.reset()
+            view?.updateGameScreen()
         }
     }
     

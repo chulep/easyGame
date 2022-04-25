@@ -9,8 +9,6 @@ import UIKit
 
 class InfoUIBuilder {
     
-    //cooode
-    
     static func createLabel(textSize: Int) -> UILabel {
         let label = UILabel()
         label.backgroundColor = .clear
