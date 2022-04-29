@@ -8,22 +8,33 @@
 import UIKit
 
 class LaunchScreenViewController: UIViewController {
-
+    
+    private let label: UILabel = {
+        let label = UILabel()
+        label.text = "easyGame"
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
-        // Do any additional setup after loading the view.
+        createUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        label.textColor = UIColorsHelper.createGradientColor(bounds: label.bounds)
     }
-    */
-
+    
+    private func createUI() {
+        view.backgroundColor = UIColorsHelper.background
+        
+        view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
 }

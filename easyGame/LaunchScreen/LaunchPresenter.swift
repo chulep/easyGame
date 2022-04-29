@@ -5,32 +5,31 @@
 //  Created by Pavel Schulepov on 25.04.2022.
 //
 
-import Foundation
 import UIKit
 
-protocol LaunchScreenPresenterProtocol {
-    func present()
-    func dissmiss(completion: (() -> Void)?)
+protocol LaunchScreenPresenterProtocol: AnyObject {
+    func present(windowScene: UIWindowScene)
+    func dismiss(completion: (() -> Void)?)
 }
 
 final class LaunchScreenPresenter: LaunchScreenPresenterProtocol {
     
-    private lazy var foregroundLaunchWindow: UIWindow = {
-        let launchWindow = UIWindow()
-        let launchVC = LaunchScreenViewController()
-        
-        launchWindow.windowLevel = .normal + 1
-        launchWindow.rootViewController = launchVC
-        return launchWindow
-    }()
+    let window = UIWindow()
+    let launchScreenViewController = LaunchScreenViewController()
     
-    func present() {
-        foregroundLaunchWindow.isHidden = false
+    func present(windowScene: UIWindowScene) {
+        window.windowScene = windowScene
+        window.windowLevel = .normal + 1
+        window.rootViewController = launchScreenViewController
+        window.isHidden = false
     }
     
-    func dissmiss(completion: (() -> Void)?) {
-        
+    func dismiss(completion: (() -> Void)?) {
+        UIView.animate(withDuration: 0.5) {
+            self.window.center.y = self.window.center.y + self.window.bounds.height
+        } completion: { _ in
+            completion?()
+        }
     }
-    
     
 }
