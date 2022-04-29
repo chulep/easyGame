@@ -13,12 +13,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var coreDataStack: CoreDataStack!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let mainVC = ModuleBuilder.createMainVC()
         window?.rootViewController = mainVC
         window?.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
