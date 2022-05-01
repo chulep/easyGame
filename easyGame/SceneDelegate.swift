@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        //MainWindow
+        // MainWindow
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = mainVC
         window?.makeKeyAndVisible()
         
-        //LaunchScreenWindow
+        // LaunchScreenWindow
         launchScreenPresenter?.present(windowScene: windowScene)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.launchScreenPresenter?.dismiss(completion: {

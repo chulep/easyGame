@@ -16,9 +16,16 @@ class LaunchScreenViewController: UIViewController {
         return label
     }()
     
+    private var openView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColorsHelper.background
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
+        startAnimate()
     }
     
     override func viewDidLayoutSubviews() {
@@ -26,15 +33,29 @@ class LaunchScreenViewController: UIViewController {
         label.textColor = UIColorsHelper.createGradientColor(bounds: label.bounds)
     }
     
+    //MARK: - UI
     private func createUI() {
         view.backgroundColor = UIColorsHelper.background
         
         view.addSubview(label)
+        view.addSubview(openView)
+        openView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            openView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            openView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            openView.heightAnchor.constraint(equalTo: label.heightAnchor),
+            openView.widthAnchor.constraint(equalTo: label.widthAnchor)
         ])
+    }
+    
+    //MARK: - Animate Logo
+    private func startAnimate() {
+        UIView.animate(withDuration: 0.25) {
+            self.openView.transform = CGAffineTransform(translationX: +150, y: 0)
+        }
     }
     
 }
