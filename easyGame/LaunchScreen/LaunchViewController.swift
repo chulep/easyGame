@@ -37,10 +37,11 @@ class LaunchScreenViewController: UIViewController {
     private func createUI() {
         view.backgroundColor = UIColorsHelper.background
         
-        view.addSubview(label)
-        view.addSubview(openView)
-        openView.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
+        for i in [label, openView] {
+            i.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(i)
+        }
+        
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
