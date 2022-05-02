@@ -53,7 +53,7 @@ class LaunchScreenViewController: UIViewController {
     
     //MARK: - Animate Logo
     private func startAnimate() {
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.3) {
             self.openView.transform = CGAffineTransform(translationX: +150, y: 0)
         }
     }
