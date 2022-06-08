@@ -21,8 +21,6 @@ class ModuleBuilder: ModuleBuilderProtocol {
         let dataServise = GameScreenDataServise(objects: objects, room: PersonageBuilder.create.room)
         let view = MainViewController()
         let presenter = MainPresenter(view: view, movePhysicsServise: physicServise, gameScreenDataServise: dataServise, scoreServise: scoreServise)
-        let timer = TimerServise(presenter: presenter)
-        presenter.timerServise = timer
         view.presenter = presenter
         return view
     }

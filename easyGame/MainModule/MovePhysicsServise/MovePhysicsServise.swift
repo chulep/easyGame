@@ -11,6 +11,7 @@ protocol MovePhysicsServiseProtocol {
     init(obects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol)
     var scoreServise: ScoreServiseProtocol! { get }
     func universalMove(personage: Object.Name, direction: Object.Direction)
+    func antiheroMove()
 }
 
 class MovePhysicsServise: MovePhysicsServiseProtocol {
@@ -111,4 +112,20 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
         }
     }
     
+    //MARK: - antihero move method
+    
+    func antiheroMove() {
+        switch Int.random(in: 1...4) {
+        case 1:
+            universalMove(personage: .antiHero, direction: .up)
+        case 2:
+            universalMove(personage: .antiHero, direction: .left)
+        case 3:
+            universalMove(personage: .antiHero, direction: .right)
+        case 4:
+            universalMove(personage: .antiHero, direction: .down)
+        default:
+            break
+        }
+    }
 }

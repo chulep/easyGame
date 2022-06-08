@@ -12,7 +12,6 @@ protocol MainPresenterProtocol: AnyObject {
     
     init(view: MainViewProtocol, movePhysicsServise: MovePhysicsServiseProtocol, gameScreenDataServise: GameScreenDataServiseProtocol, scoreServise: ScoreServiseProtocol)
     
-    var timerServise: TimerServiseProtocol! { get }
     var gameScreenData: String? { get set }
     func createDataFromGameScreen()
     func startButtonTap()
@@ -25,8 +24,8 @@ protocol MainPresenterProtocol: AnyObject {
 class MainPresenter: MainPresenterProtocol {
     
     weak var view: MainViewProtocol!
-    var timerServise: TimerServiseProtocol!
     var scoreServise: ScoreServiseProtocol!
+    private var timer = Timer()
     var gameScreenData: String?
     var heartsForGameScreen = String()
     var scoreFomGameScreen = String()
@@ -56,7 +55,7 @@ class MainPresenter: MainPresenterProtocol {
         }
         if scoreServise?.hearts == "" {
             startBool = !startBool
-            timerServise?.stopTimer()
+            timer.invalidate()
             gameScreenData = "GAME OVER\n \npress START to a new game"
             heartsForGameScreen = ""
             gameScreenDataServise.refreshObjects()
@@ -97,9 +96,19 @@ class MainPresenter: MainPresenterProtocol {
     
     //MARK: - Start buton 
     func startButtonTap() {
+        switch startBool {
+        case false:
+            timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(antiheroMoveTimerSetup), userInfo: nil, repeats: true)
+        case true:
+            timer.invalidate()
+        }
         startBool = !startBool
         createDataFromGameScreen()
-        timerServise?.startTimer()
     }
     
+    //MARK: - Move antihero timer setup
+    @objc private func antiheroMoveTimerSetup() {
+        movePhysicsServise.antiheroMove()
+        createDataFromGameScreen()
+    }
 }
