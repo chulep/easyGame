@@ -17,8 +17,8 @@ class ModuleBuilder: ModuleBuilderProtocol {
     static func createMainVC() -> UIViewController {
         let objects = PersonageBuilder.create.amount(palm: 3, box: 3)
         let scoreServise = ScoreServise()
-        let physicServise = MovePhysicsServise(obects: objects, room: PersonageBuilder.create.room, scoreServise: scoreServise)
-        let dataServise = GameScreenDataServise(objects: objects, room: PersonageBuilder.create.room)
+        let physicServise = MovePhysicsServise(gameObjects: objects, room: PersonageBuilder.create.room, scoreServise: scoreServise)
+        let dataServise = GameScreenDataServise(gameObjects: objects, room: PersonageBuilder.create.room)
         let view = MainViewController()
         let presenter = MainPresenter(view: view, movePhysicsServise: physicServise, gameScreenDataServise: dataServise, scoreServise: scoreServise)
         view.presenter = presenter

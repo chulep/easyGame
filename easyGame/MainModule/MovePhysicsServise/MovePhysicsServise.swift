@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MovePhysicsServiseProtocol {
-    init(obects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol)
+    init(gameObjects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol)
     var scoreServise: ScoreServiseProtocol! { get }
     func universalMove(personage: Object.Name, direction: Object.Direction)
     func antiheroMove()
@@ -17,13 +17,13 @@ protocol MovePhysicsServiseProtocol {
 class MovePhysicsServise: MovePhysicsServiseProtocol {
     
     var scoreServise: ScoreServiseProtocol!
-    private var objects: [Object]
+    private var gameObjects: [Object]
     private var room: (x: Int, y: Int)!
     private var hero: Object!
     private var antiHero: Object!
     
-    required init(obects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol) {
-        self.objects = obects
+    required init(gameObjects: [Object], room: (x: Int, y: Int), scoreServise: ScoreServiseProtocol) {
+        self.gameObjects = gameObjects
         self.room = room
         self.scoreServise = scoreServise
         searchHeroes()
@@ -31,7 +31,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
     
     //MARK: - Support method
     private func searchHeroes() {
-        for i in objects {
+        for i in gameObjects {
             if i.name == .hero {
                 hero = i
             }
@@ -54,7 +54,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
         }
     }
     
-    //MARK: - move physics method
+    //MARK: - Move physics method
     func universalMove(personage: Object.Name, direction: Object.Direction) {
         let reverseMove = reverseMove(direction: direction)
         
@@ -65,8 +65,8 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
             antiHero.baseMovement(direction: direction)
         }
         
-        for i in objects {
-            for j in objects {
+        for i in gameObjects {
+            for j in gameObjects {
                 switch (i.name, j.name) {
                 //push box
                 case (.hero, .box):
@@ -112,7 +112,7 @@ class MovePhysicsServise: MovePhysicsServiseProtocol {
         }
     }
     
-    //MARK: - antihero move method
+    //MARK: - Antihero move method
     
     func antiheroMove() {
         switch Int.random(in: 1...4) {
