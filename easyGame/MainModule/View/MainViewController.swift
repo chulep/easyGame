@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
         gameScreenView.screenLabel.text = "PRESS START"
     }
     
-    //MARK: - Func button tup
+    //MARK: - Func button tap
     @objc func tapButton(_ button: UIButton) {
         switch button.tag {
         case 0:
